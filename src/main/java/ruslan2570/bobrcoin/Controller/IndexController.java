@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/temp")
-public class TemporaryController {
-    @GetMapping("/{name}")
-    public String index(@PathVariable String name, Model model){
-        model.addAttribute("title", name);
+@RequestMapping("/")
+public class IndexController {
+    @GetMapping()
+    public String index(Model model){
+        model.addAttribute("title", "Bobr-Coin - игра про бобров");
         return "index";
     }
 

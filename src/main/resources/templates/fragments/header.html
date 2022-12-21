@@ -4,11 +4,11 @@
             <a href="/" class="navbar-brand">Bobr-Coin</a>
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0">
-                <li><a href="index.html" class="nav-link px-2 link-secondary">Главная</a></li>
-                <li><a href="game/index.html" class="nav-link px-2 link-dark">Игра</a></li>
-                <li><a href="game/top/index.html" class="nav-link px-2 link-dark">Топ</a></li>
-                <li><a href="" class="nav-link px-2 link-dark">Статистика</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+                <li><a th:href="@{../index}" class="nav-link px-2 link-secondary">Главная</a></li>
+                <li><a th:href="@{../game}" class="nav-link px-2 link-dark">Игра</a></li>
+                <li><a th:href="@{../game/top}" class="nav-link px-2 link-dark">Топ</a></li>
+                <li><a th:href="@{../game/stats}" class="nav-link px-2 link-dark">Статистика</a></li>
+                <li><a th:href="@{../about/index}" class="nav-link px-2 link-dark">About</a></li>
             </ul>
 
             <div class="col-md-3 text-end justify-content-end">
