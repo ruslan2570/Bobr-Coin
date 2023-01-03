@@ -17,7 +17,7 @@ public class AboutController {
 
     @GetMapping("/privacy-policy")
     public String privacyPolicy(Model model){
-        model.addAttribute("title", "Политиика Конфиденциальности");
+        model.addAttribute("title", "Политика Конфиденциальности");
         return "about/privacy-policy";
     }
 

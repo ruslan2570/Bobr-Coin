@@ -1,21 +1,94 @@
-    <header class="navbar navbar-expand-lg d-flex flex-wrap align-items-left py-3 mb-4 border-bottom">
+<header class="navbar navbar-expand-lg d-flex flex-wrap align-items-left py-3 mb-4 border-bottom">
 
-        <div class="container">
-            <a href="/" class="navbar-brand">Bobr-Coin</a>
+    <div class="container">
+        <a href="/" class="navbar-brand">Bobr-Coin</a>
 
-            <nav>
-                <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0">
-                    <li><a th:href="@{/}" class="nav-link px-2 link-secondary">Главная</a></li>
-                    <li><a th:href="@{../game}" class="nav-link px-2 link-dark">Игра</a></li>
-                    <li><a th:href="@{../game/top}" class="nav-link px-2 link-dark">Топ</a></li>
-                    <li><a th:href="@{../game/stats}" class="nav-link px-2 link-dark">Статистика</a></li>
-                    <li><a th:href="@{../about/}" class="nav-link px-2 link-dark">About</a></li>
-                </ul>
-            </nav>
+        <nav>
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0">
+                <li><a th:href="@{/}" class="nav-link px-2 link-secondary">Главная</a></li>
+                <li><a th:href="@{../game}" class="nav-link px-2 link-dark">Игра</a></li>
+                <li><a th:href="@{../game/top}" class="nav-link px-2 link-dark">Топ</a></li>
+                <li><a th:href="@{../game/stats}" class="nav-link px-2 link-dark">Статистика</a></li>
+                <li><a th:href="@{../about/}" class="nav-link px-2 link-dark">About</a></li>
+            </ul>
+        </nav>
 
-            <div class="col-md-3 text-end justify-content-end">
-                <button type="button" class="btn btn-outline-primary me-2">Войти</button>
-                <button type="button" class="btn btn-primary">Регистрация</button>
+        <div class="col-md-3 text-end justify-content-end">
+            <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Вход
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">
+                Регистрация
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="loginModalLabel">Авторизация</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <form th:action="" method="post">
+                    <div class="modal-body">
+
+
+                        <div>
+                            <span>Логин:</span>
+                            <input class="form-text" type="text" name="login">
+                        </div>
+
+                        <div>
+                            <span>Пароль:</span>
+                            <input class="form-text" type="text" name="password">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                        <button type="submit" class="btn btn-primary auth-bn">Войти</button>
+                        <a href="#" class="link-dark text-decoration-none">Я забыл пароль😥</a>
+                    </div>
+                </form>
             </div>
         </div>
-    </header>
+    </div>
+
+    <div class="modal fade" id="regModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="regModalLabel">Регистрация</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+
+
+                        <div>
+                            <span>Почта:</span>
+                            <input class="form-text" type="email" name="login">
+                        </div>
+
+                        <div>
+                            <span>Логин:</span>
+                            <input class="form-text" type="text" name="login">
+                        </div>
+
+                        <div>
+                            <span>Пароль:</span>
+                            <input class="form-text" type="text" name="password">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                        <button type="button" class="btn btn-primary auth-bn">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+

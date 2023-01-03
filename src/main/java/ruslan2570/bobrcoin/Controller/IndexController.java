@@ -14,6 +14,4 @@ public class IndexController {
         model.addAttribute("title", "Bobr-Coin - игра про бобров");
         return "index";
     }
-
-
 }
