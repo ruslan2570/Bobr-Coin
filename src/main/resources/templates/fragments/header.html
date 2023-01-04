@@ -9,7 +9,7 @@
                 <li><a th:href="@{../game}" class="nav-link px-2 link-dark">Игра</a></li>
                 <li><a th:href="@{../game/top}" class="nav-link px-2 link-dark">Топ</a></li>
                 <li><a th:href="@{../game/stats}" class="nav-link px-2 link-dark">Статистика</a></li>
-                <li><a th:href="@{../about/}" class="nav-link px-2 link-dark">About</a></li>
+                <li><a th:href="@{../about/}" class="nav-link px-2 link -dark">About</a></li>
             </ul>
         </nav>
 
@@ -30,18 +30,18 @@
                     <h3 class="modal-title fs-5" id="loginModalLabel">Авторизация</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <form th:action="" method="post">
+                <form th:action="@{../auth/login}" method="post">
                     <div class="modal-body">
 
 
                         <div>
                             <span>Логин:</span>
-                            <input class="form-text" type="text" name="login">
+                            <input class="form-text" type="text" required name="login">
                         </div>
 
                         <div>
                             <span>Пароль:</span>
-                            <input class="form-text" type="text" name="password">
+                            <input class="form-text" type="password" required name="password">
                         </div>
 
 
@@ -62,29 +62,29 @@
                     <h1 class="modal-title fs-5" id="regModalLabel">Регистрация</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <form action="" method="post">
+                <form th:action="@{../auth/reg}" method="post">
                     <div class="modal-body">
 
 
                         <div>
                             <span>Почта:</span>
-                            <input class="form-text" type="email" name="login">
+                            <input class="form-text" required type="email" name="email">
                         </div>
 
                         <div>
                             <span>Логин:</span>
-                            <input class="form-text" type="text" name="login">
+                            <input class="form-text" required type="text" name="login">
                         </div>
 
                         <div>
                             <span>Пароль:</span>
-                            <input class="form-text" type="text" name="password">
+                            <input class="form-text" required type="password" name="password">
                         </div>
 
 
                     </div>
                     <div class="modal-footer justify-content-start">
-                        <button type="button" class="btn btn-primary auth-bn">Зарегистрироваться</button>
+                        <button type="submit" class="btn btn-primary auth-bn">Зарегистрироваться</button>
                     </div>
                 </form>
             </div>
