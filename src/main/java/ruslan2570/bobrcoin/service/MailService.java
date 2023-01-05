@@ -1,16 +1,12 @@
 package ruslan2570.bobrcoin.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
+import org.springframework.beans.factory.annotation.Autowired;;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import ruslan2570.bobrcoin.entity.UserEntity;
 
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 import java.time.Instant;
 import java.util.Date;
 
