@@ -15,7 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users", indexes = {
-        @Index(name = "idx_user_login", columnList = "login")
+        @Index(name = "idx_userentity_login_unq", columnList = "login", unique = true),
+        @Index(name = "idx_userentity_email_unq", columnList = "email", unique = true)
 })
 public class UserEntity {
 
@@ -24,7 +25,6 @@ public class UserEntity {
     private long id;
 
     private String login;
-
 
     private String password;
 

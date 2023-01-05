@@ -29,6 +29,9 @@ public class AuthService {
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    MailService mailService;
+
 
     public void login(String login, String password) {
         UsernamePasswordAuthenticationToken auth = new
@@ -51,7 +54,7 @@ public class AuthService {
 
         userRepo.save(userEntity);
 
-        // emailService.sendConfirmationCode(UserEntity);
+        mailService.sendConfirmationCode(userEntity);
 
         login(login, password);
     }
