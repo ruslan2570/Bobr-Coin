@@ -42,8 +42,8 @@ public class AuthController {
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
 
-        HttpSession session = req.getSession(true);
-        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
+//        HttpSession session = req.getSession(true);
+//        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
 
         return "some";
     }
@@ -54,5 +54,6 @@ public class AuthController {
                       @RequestParam("email") String email){
         return String.format("%s %s %s", login, password, email);
     }
+
 
 }

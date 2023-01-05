@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ruslan2570.bobrcoin.entity.UserEntity;
+import ruslan2570.bobrcoin.repo.UserRepo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,17 +24,21 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    UserRepo userRepo;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority("USER"));
 
+        UserEntity userEntity = userRepo.findUserByLogin(username);
 
-        if(!username.equals("user"))
+        if(userEntity==null)
             throw new UsernameNotFoundException("Пользователь не найден");
 
-        return new User("user", passwordEncoder.encode("pass"), roles);
+        return new User(userEntity.getLogin(), userEntity.getPassword(), roles);
 
     }
 }
