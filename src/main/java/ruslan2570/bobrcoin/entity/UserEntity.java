@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user", indexes = {
+@Table(name = "users", indexes = {
         @Index(name = "idx_user_login", columnList = "login")
 })
 public class UserEntity {
@@ -26,8 +27,7 @@ public class UserEntity {
 
     private String password;
 
-    @Column(columnDefinition = "money")
-    private double bcAmount;
+    private BigDecimal bcAmount;
 
     private String email;
 
