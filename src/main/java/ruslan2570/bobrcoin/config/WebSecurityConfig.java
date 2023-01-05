@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ruslan2570.bobrcoin.AuthProvider;
 
 @EnableWebSecurity
@@ -23,8 +24,14 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/about//").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/game").authenticated();
-        http.logout();
+                .antMatchers("/game").authenticated()
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID");
 
         return http.build();
     }

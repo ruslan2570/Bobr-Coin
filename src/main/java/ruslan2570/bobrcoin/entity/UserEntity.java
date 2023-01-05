@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -31,8 +32,7 @@ public class UserEntity {
 
     private String email;
 
-    @Column(columnDefinition = "uuid")
-    private String emailConfirmation;
+    private UUID emailConfirmation;
 
     @Override
     public boolean equals(Object o) {
