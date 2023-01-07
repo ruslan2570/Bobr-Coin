@@ -13,14 +13,25 @@
             </ul>
         </nav>
 
-        <div class="col-md-3 text-end justify-content-end">
-            <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">Вход
-            </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">
-                Регистрация
-            </button>
+        <!--        <div class="col-md-3 text-end justify-content-end">-->
+        <!--            <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"-->
+        <!--                    data-bs-target="#loginModal">Вход-->
+        <!--            </button>-->
+        <!--            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">-->
+        <!--                Регистрация-->
+        <!--            </button>-->
+        <!--        </div>-->
+
+        <div class="dropdown">
+            <img th:src="@{/img/beaver1.png}" data-bs-toggle="dropdown" aria-expanded="false" height="35" alt="BobrId">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <p th:text="${username}">Bobr</p>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
         </div>
+
     </div>
 
     <div class="modal fade" id="loginModal">

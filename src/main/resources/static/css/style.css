@@ -2,3 +2,8 @@
     background-color: black;
     color: white;
 }
+
+.bobr-avatar{
+    border: #111;
+    border-radius: 25px;
+}

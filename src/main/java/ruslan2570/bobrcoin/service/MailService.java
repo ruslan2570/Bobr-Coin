@@ -17,26 +17,22 @@ public class MailService {
     @Autowired
     JavaMailSender javaMailSender;
 
-//    @Autowired
-//    Session session;
-
     public void sendConfirmationCode(UserEntity userEntity){
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom("bobr@new-bokino.ru");
         message.setTo(userEntity.getEmail());
-//        message.setSubject("Активация аккаунта");
-//        String text = String.format("Привет! Спасибо за интерес к Bobr-Coin." +
-//                " Для активации аккаунта перейдите по следующей ссылке: " +
-//                "https://bobr-coin.new-bokino.ru/api/auth/activate/%s",
-//                userEntity.getEmailConfirmation().toString());
+        message.setSubject("Активация аккаунта");
+        String text = String.format("Привет, %s! Спасибо за интерес к Bobr-Coin." +
+                " Для активации аккаунта перейдите по следующей ссылке: " +
+                "https://bobr-coin.new-bokino.ru/api/auth/activate/%s", userEntity.getLogin(),
+                userEntity.getEmailConfirmation().toString());
 
-        String text = "test";
         message.setSentDate(Date.from(Instant.now()));
-        message.setSubject(text);
+        message.setSubject("Подтверждение аккаунта Bobr-Coin");
         message.setText(text);
 
-        javaMailSender.send(message);
+        // javaMailSender.send(message);
     }
 
 
