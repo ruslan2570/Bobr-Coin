@@ -10,4 +10,10 @@ public interface UserRepo extends CrudRepository<UserEntity, Long> {
     public List<UserEntity> findUserById(Long id);
 
     public UserEntity findUserByLogin(String login);
+
+    public UserEntity findUserByEmail(String email);
+
+    public boolean existsByEmail(String email);
+
+    public boolean existsByLogin(String login);
 }

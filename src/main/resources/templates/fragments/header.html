@@ -13,93 +13,109 @@
             </ul>
         </nav>
 
-        <!--        <div class="col-md-3 text-end justify-content-end">-->
-        <!--            <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"-->
-        <!--                    data-bs-target="#loginModal">Вход-->
-        <!--            </button>-->
-        <!--            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">-->
-        <!--                Регистрация-->
-        <!--            </button>-->
-        <!--        </div>-->
-
-        <div class="dropdown">
-            <img th:src="@{/img/beaver1.png}" data-bs-toggle="dropdown" aria-expanded="false" height="35" alt="BobrId">
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <p th:text="${username}">Bobr</p>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+        <div class="col-md-3 text-end justify-content-end" th:if="${username} == null">
+            <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Вход
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">
+                Регистрация
+            </button>
         </div>
 
-    </div>
-
-    <div class="modal fade" id="loginModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="loginModalLabel">Авторизация</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        <div th:if="${username} != null">
+            <div class="dropdown">
+                <img th:src="@{/img/beaver1.png}" data-bs-toggle="dropdown" aria-expanded="false" height="35"
+                     alt="BobrId">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" th:text="${username}">Bobr</a>
+                    <a class="dropdown-item" href="#">Настройки</a>
+                    <a class="dropdown-item text-danger" href="/logout">Выход</a>
                 </div>
-                <form th:action="@{../api/auth/login}" method="post">
-                    <div class="modal-body">
-
-
-                        <div>
-                            <span>Логин:</span>
-                            <input class="form-text" type="text" required name="login">
-                        </div>
-
-                        <div>
-                            <span>Пароль:</span>
-                            <input class="form-text" type="password" required name="password">
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer justify-content-start">
-                        <button type="submit" class="btn btn-primary auth-bn">Войти</button>
-                        <a href="#" class="link-dark text-decoration-none">Я забыл пароль😥</a>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="regModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="regModalLabel">Регистрация</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        <div class="modal fade" id="loginModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title fs-5" id="loginModalLabel">Авторизация</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <form th:action="@{../auth/login}" method="post">
+                        <div class="modal-body">
+
+
+                            <div>
+                                <span>Логин:</span>
+                                <input class="form-text" type="text" required name="login">
+                            </div>
+
+                            <div>
+                                <span>Пароль:</span>
+                                <input class="form-text" type="password" required name="password">
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer justify-content-start">
+                            <button type="submit" class="btn btn-primary auth-bn">Войти</button>
+                            <a href="#" class="link-dark text-decoration-none">Я забыл пароль😥</a>
+                        </div>
+                    </form>
                 </div>
-                <form th:action="@{../api/auth/reg}" method="post">
-                    <div class="modal-body">
-
-
-                        <div>
-                            <span>Почта:</span>
-                            <input class="form-text" required type="email" name="email">
-                        </div>
-
-                        <div>
-                            <span>Логин:</span>
-                            <input class="form-text" required type="text" name="login">
-                        </div>
-
-                        <div>
-                            <span>Пароль:</span>
-                            <input class="form-text" required type="password" name="password">
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer justify-content-start">
-                        <button type="submit" class="btn btn-primary auth-bn">Зарегистрироваться</button>
-                    </div>
-                </form>
             </div>
         </div>
+
+        <div class="modal fade" id="regModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="regModalLabel">Регистрация</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <form th:action="@{../auth/reg}" method="post">
+                        <div class="modal-body">
+
+
+                            <div>
+                                <span>Почта:</span>
+                                <input class="form-text" required type="email" name="email">
+                            </div>
+
+                            <div>
+                                <span>Логин:</span>
+                                <input class="form-text" required type="text" name="login">
+                            </div>
+
+                            <div>
+                                <span>Пароль:</span>
+                                <input class="form-text" required type="password" name="password">
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer justify-content-start">
+                            <button type="submit" class="btn btn-primary auth-bn">Зарегистрироваться</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${message} != null" class="modal fade modal-open" tabindex="-1" role="dialog" id="msgModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Сообщение от сервера</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p th:text="${message}">Текст</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </header>
-

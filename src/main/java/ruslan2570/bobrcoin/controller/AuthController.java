@@ -1,4 +1,4 @@
-package ruslan2570.bobrcoin.restController;
+package ruslan2570.bobrcoin.controller;
 
 
 import org.aspectj.apache.bcel.classfile.Module;
@@ -14,7 +14,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import ruslan2570.bobrcoin.service.AuthService;
 
 import javax.servlet.annotation.ServletSecurity;
@@ -25,8 +30,8 @@ import java.util.Enumeration;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
-@RestController
-@RequestMapping("/api/auth/")
+@Controller
+@RequestMapping("/auth/")
 public class AuthController {
 
     @Autowired
@@ -36,20 +41,26 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestParam("login") String login, @RequestParam("password") String password){
-        authService.login(login, password);
+    public RedirectView login(@RequestParam("login") String login,
+                        @RequestParam("password") String password,
+                        RedirectAttributes redirectAttributes){
+        authService.login(login, password, redirectAttributes);
+        final RedirectView redirectView = new RedirectView("/", true);
 
-        return ResponseEntity.ok("Успешно");
+        return redirectView;
     }
 
     @PostMapping("/reg")
-    public ResponseEntity reg(@RequestParam("login") String login,
-                      @RequestParam("password") String password,
-                      @RequestParam("email") String email){
+    public RedirectView reg(@RequestParam("login") String login,
+                                  @RequestParam("password") String password,
+                                  @RequestParam("email") String email,
+                                  RedirectAttributes redirectAttributes){
 
-        authService.reg(login, password, email);
+        authService.reg(login, password, email, redirectAttributes);
 
-        return ResponseEntity.ok("Пользователь зарегистрирован");
+        final RedirectView redirectView = new RedirectView("/", true);
+
+        return redirectView;
     }
 
 //    @PostMapping("/logout")

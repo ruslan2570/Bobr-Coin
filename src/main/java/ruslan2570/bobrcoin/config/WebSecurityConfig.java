@@ -23,7 +23,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/about//").permitAll()
-                .antMatchers("/").permitAll()
                 .antMatchers("/game").authenticated()
                 .and()
                 .logout()
