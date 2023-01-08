@@ -63,13 +63,44 @@ public class AuthController {
         return redirectView;
     }
 
-//    @PostMapping("/logout")
-//    public ResponseEntity logout(){
+    /*
+    if code == null:
+        Попросить ввести email
+        Отправить форму
+
+    if code != null:
+        Найти email по коду подтверждения
+        Запросить новый пароль
+        Отправить форму
+    */
+
+    @GetMapping("/forgot-password")
+    public String forgetPassword(@RequestParam(name = "code", required = false) String code, Model model){
+
+        if(code != null){
+//            authService.
 //
-//
-//
-//        return ResponseEntity.ok("До скорой встречи!");
-//    }
+            model.addAttribute("code", "dyomin.rus@new-bokino.ru");
+        }
 
 
+
+        return "restore";
+    }
+
+    /*
+    email:
+        Сгенерировать код подтверждения
+        Записать код в БД
+        Отправить код на почту
+        Перенаправить на главную с сообщением
+
+    password:
+        Сгенерировать пароль
+        Сохранить пароль в БД
+     */
+    @PostMapping("/forgot-password")
+    public RedirectView restorePassword(){
+        return null;
+    }
 }

@@ -47,7 +47,6 @@ public class AuthService {
         } catch (RuntimeException e){
             redirectAttributes.addAttribute("message", e.getMessage());
         }
-
     }
 
     public void reg(String login, String password, String email, RedirectAttributes redirectAttributes) {

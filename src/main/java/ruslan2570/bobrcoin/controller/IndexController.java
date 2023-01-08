@@ -22,7 +22,6 @@ public class IndexController {
     @GetMapping()
     public String index(Model model){
         model.addAttribute("title", "Bobr-Coin — игра про бобров");
-        //model.addAttribute("message", message);
 
         return "index";
     }
