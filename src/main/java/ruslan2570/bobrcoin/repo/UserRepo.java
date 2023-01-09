@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import ruslan2570.bobrcoin.entity.UserEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserRepo extends CrudRepository<UserEntity, Long> {
 
@@ -12,6 +13,10 @@ public interface UserRepo extends CrudRepository<UserEntity, Long> {
     public UserEntity findUserByLogin(String login);
 
     public UserEntity findUserByEmail(String email);
+
+    public UserEntity findUserByPasswordRestore(UUID code);
+
+    public UserEntity findUserByEmailConfirmation(UUID code);
 
     public boolean existsByEmail(String email);
 

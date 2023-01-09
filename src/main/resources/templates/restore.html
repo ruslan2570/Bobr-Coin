@@ -5,30 +5,28 @@
 
 <body class="bg-light">
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<div th:if="${email} == null" class="position-relative p-3 p-md-5 m-md-3 text-center">
+<div th:if="${code} == null" class="position-relative p-3 p-md-5 m-md-3 text-center">
     <form method="post" th:action="@{../auth/forgot-password}">
-        <label>
-            Адрес электронной почты:
-            <input type="email" required>
-        </label>
+<!--        <label>-->
+<!--            Адрес электронной почты:-->
+<!--            <input id="email" type="email" required>-->
+<!--        </label>-->
+
+            <span>Адрес электронной почты:</span>
+            <input name="email" type="email" required>
 
         <button type="submit" class="btn-primary btn">Отправить</button>
     </form>
 </div>
-<div th:if="${email} != null" class="position-relative p-3 p-md-5 m-md-3 text-center">
-    <form method="post" th:action="@{../auth/forgot-password}">
+<div th:if="${code} != null" class="position-relative p-3 p-md-5 m-md-3 text-center">
+    <form method="post" th:action="@{/auth/forgot-password}">
 
-        <div class="p-md-2">
-            <label>
-                Адрес электронной почты:
-                <input id="email" type="email" required th:value="${email}" readonly>
-            </label>
-        </div>
+        <input name="code" type="text" required th:value="${code}" hidden="hidden">
 
         <div class="p-md-2">
             <label>
                 Новый пароль:
-                <input id="new-password" type="password" required>
+                <input name="new-password" type="password" required>
             </label>
         </div>
 

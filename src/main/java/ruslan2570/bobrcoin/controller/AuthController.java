@@ -1,6 +1,8 @@
 package ruslan2570.bobrcoin.controller;
 
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import ruslan2570.bobrcoin.exception.UserAlreadyExistsException;
 import ruslan2570.bobrcoin.service.AuthService;
 
 import javax.servlet.annotation.ServletSecurity;
@@ -27,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.Enumeration;
+import java.util.logging.Logger;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
@@ -69,21 +73,16 @@ public class AuthController {
         Отправить форму
 
     if code != null:
-        Найти email по коду подтверждения
         Запросить новый пароль
         Отправить форму
     */
 
     @GetMapping("/forgot-password")
-    public String forgetPassword(@RequestParam(name = "code", required = false) String code, Model model){
+    public String forgotPassword(@RequestParam(name = "code", required = false) String code, Model model){
 
         if(code != null){
-//            authService.
-//
-            model.addAttribute("code", "dyomin.rus@new-bokino.ru");
+            model.addAttribute("code", code);
         }
-
-
 
         return "restore";
     }
@@ -96,11 +95,26 @@ public class AuthController {
         Перенаправить на главную с сообщением
 
     password:
-        Сгенерировать пароль
+        Захешировать пароль
         Сохранить пароль в БД
      */
     @PostMapping("/forgot-password")
-    public RedirectView restorePassword(){
-        return null;
+    public RedirectView restorePassword(
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "new-password", required = false) String newPassword,
+            @RequestParam(name = "code", required = false) String code,
+            RedirectAttributes redirectAttributes){
+        Log log = LogFactory.getFactory().getInstance(AuthController.class);
+
+        log.info(String.format("%s %s %s", email, newPassword, code));
+
+        if(email != null)
+            authService.sendRestoreEmail(email, redirectAttributes);
+
+        if(newPassword != null && code != null)
+            authService.setUserPassword(code, newPassword, redirectAttributes);
+
+        RedirectView redirectView = new RedirectView("/", true);
+        return redirectView;
     }
 }

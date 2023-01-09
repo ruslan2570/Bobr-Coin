@@ -34,6 +34,8 @@ public class UserEntity {
 
     private UUID emailConfirmation;
 
+    private UUID passwordRestore;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -25,6 +25,7 @@ public class WebSecurityConfig {
                 .antMatchers("/about//").permitAll()
                 .antMatchers("/game").authenticated()
                 .and()
+                .cors().and().csrf().disable()
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
