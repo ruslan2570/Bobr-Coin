@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import ruslan2570.bobrcoin.exception.UserAlreadyExistsException;
 import ruslan2570.bobrcoin.service.AuthService;
+import ruslan2570.bobrcoin.service.CaptchaService;
 
 import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServletRequest;
@@ -43,29 +44,33 @@ public class AuthController {
     AuthenticationProvider authenticationProvider;
 
     @Autowired
+    CaptchaService captchaService;
+
+    @Autowired
     AuthService authService;
 
     @PostMapping("/login")
     public RedirectView login(@RequestParam("login") String login,
-                        @RequestParam("password") String password,
-                        RedirectAttributes redirectAttributes){
+                              @RequestParam("password") String password,
+                              RedirectAttributes redirectAttributes) {
         authService.login(login, password, redirectAttributes);
-        final RedirectView redirectView = new RedirectView("/", true);
 
-        return redirectView;
+        return new RedirectView("/", true);
     }
 
     @PostMapping("/reg")
     public RedirectView reg(@RequestParam("login") String login,
-                                  @RequestParam("password") String password,
-                                  @RequestParam("email") String email,
-                                  RedirectAttributes redirectAttributes){
+                            @RequestParam("password") String password,
+                            @RequestParam("email") String email,
+                            @RequestParam("smarttoken") String smartToken,
+                            HttpServletRequest request,
+                            RedirectAttributes redirectAttributes) {
 
-        authService.reg(login, password, email, redirectAttributes);
+        if(captchaService.validate(smartToken, request.getRemoteAddr(), redirectAttributes)){
+            authService.reg(login, password, email, redirectAttributes);
+        }
 
-        final RedirectView redirectView = new RedirectView("/", true);
-
-        return redirectView;
+        return new RedirectView("/", true);
     }
 
     /*
@@ -79,9 +84,9 @@ public class AuthController {
     */
 
     @GetMapping("/forgot-password")
-    public String forgotPassword(@RequestParam(name = "code", required = false) String code, Model model){
+    public String forgotPassword(@RequestParam(name = "code", required = false) String code, Model model) {
 
-        if(code != null){
+        if (code != null) {
             model.addAttribute("code", code);
         }
 
@@ -104,18 +109,22 @@ public class AuthController {
             @RequestParam(name = "email", required = false) String email,
             @RequestParam(name = "new-password", required = false) String newPassword,
             @RequestParam(name = "code", required = false) String code,
-            RedirectAttributes redirectAttributes){
-        Log log = LogFactory.getFactory().getInstance(AuthController.class);
+            @RequestParam(value = "smart-token", required = false) String smartToken,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
 
-        log.info(String.format("%s %s %s", email, newPassword, code));
+        if (email != null && smartToken != null){
+            if(captchaService.validate(smartToken, request.getRemoteAddr(), redirectAttributes)) {
+                authService.sendRestoreEmail(email, redirectAttributes);
+            } else{
+                redirectAttributes.addAttribute("message", "Необходимо пройти капчу");
+                return new RedirectView("/", true);
+            }
+        }
 
-        if(email != null)
-            authService.sendRestoreEmail(email, redirectAttributes);
-
-        if(newPassword != null && code != null)
+        if (newPassword != null && code != null)
             authService.setUserPassword(code, newPassword, redirectAttributes);
 
-        RedirectView redirectView = new RedirectView("/", true);
-        return redirectView;
+        return new RedirectView("/", true);
     }
 }
