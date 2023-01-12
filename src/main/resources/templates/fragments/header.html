@@ -9,7 +9,7 @@
                 <li><a th:href="@{../game}" class="nav-link px-2 link-dark">Игра</a></li>
                 <li><a th:href="@{../game/top}" class="nav-link px-2 link-dark">Топ</a></li>
                 <li><a th:href="@{../game/stats}" class="nav-link px-2 link-dark">Статистика</a></li>
-                <li><a th:href="@{../about/}" class="nav-link px-2 link -dark">About</a></li>
+                <li><a th:href="@{../about/}" class="nav-link px-2 link-dark">About</a></li>
             </ul>
         </nav>
 
@@ -58,8 +58,9 @@
 
                         </div>
                         <div class="modal-footer justify-content-start">
-                            <button type="submit" class="btn btn-primary auth-bn">Войти</button>
-                            <a th:href="@{../auth/forgot-password}" class="link-dark text-decoration-none">Я забыл пароль😥</a>
+                            <button type="submit" class="btn btn-primary">Войти</button>
+                            <a th:href="@{../auth/forgot-password}" class="link-dark text-decoration-none">Я забыл
+                                пароль😥</a>
                         </div>
                     </form>
                 </div>
@@ -70,39 +71,55 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="regModalLabel">Регистрация</h1>
+                        <h3 class="modal-title fs-5" id="regModalLabel">Регистрация</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                     </div>
-                    <form th:action="@{../auth/reg}" method="post">
+                    <form id="reg-form" th:action="@{../auth/reg}" method="post">
                         <div class="modal-body">
-
 
                             <div>
                                 <span>Почта:</span>
-                                <input class="form-text" required type="email" name="email">
+                                <input class="form-text" type="email" name="email">
                             </div>
 
                             <div>
                                 <span>Логин:</span>
-                                <input class="form-text" required type="text" name="login">
+                                <input class="form-text" type="text" name="login">
                             </div>
 
                             <div>
                                 <span>Пароль:</span>
-                                <input class="form-text" required type="password" name="password">
+                                <input class="form-text" type="password" name="password">
                             </div>
 
+                            <input type="hidden" name="smarttoken" data-testid="smart-token">
 
                         </div>
                         <div class="modal-footer justify-content-start">
-                            <button type="submit" class="btn btn-primary auth-bn">Зарегистрироваться</button>
+                            <button id="reg-btn" class="btn btn-primary" type="button">Зарегистрироваться
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div th:if="${message} != null" class="modal fade modal-open" tabindex="-1" role="dialog" id="msgModal">
+        <div id="captcha-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title  fs-5">Защита от дурака</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="captcha-container" class="smart-captcha"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${message} != null" class="modal fade modal-open" tabindex="-1" role="dialog" id="msg-modal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -116,6 +133,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </header>

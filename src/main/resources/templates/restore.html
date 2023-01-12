@@ -5,15 +5,21 @@
 
 <body class="bg-light">
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="https://captcha-api.yandex.ru/captcha.js" defer></script>
 <div th:if="${code} == null" class="position-relative p-3 p-md-5 m-md-3 text-center">
     <form method="post" th:action="@{../auth/forgot-password}">
-<!--        <label>-->
-<!--            Адрес электронной почты:-->
-<!--            <input id="email" type="email" required>-->
-<!--        </label>-->
+        <!--        <label>-->
+        <!--            Адрес электронной почты:-->
+        <!--            <input id="email" type="email" required>-->
+        <!--        </label>-->
 
-            <span>Адрес электронной почты:</span>
-            <input name="email" type="email" required>
+        <span>Адрес электронной почты:</span>
+        <input name="email" type="email" required>
+
+        <div
+                id="captcha-container"
+                class="smart-captcha m-5 w-25"
+                data-sitekey="5mei2vyWK0z4egDvy4SwMkxUXFoDCgUHwzD9le5A"></div>
 
         <button type="submit" class="btn-primary btn">Отправить</button>
     </form>

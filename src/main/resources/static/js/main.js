@@ -1,10 +1,6 @@
+let msgModal = document.getElementById('msg-modal');
 
-// var myModal = new bootstrap.Modal(document.getElementById('msgModal'), {})
-// myModal.toggle()
-
-let modal = document.getElementById('msgModal');
-
-if(modal != null){
-    let myModal = new bootstrap.Modal(modal, {});
+if(msgModal != null){
+    let myModal = new bootstrap.Modal(msgModal, {});
     myModal.toggle()
 }
