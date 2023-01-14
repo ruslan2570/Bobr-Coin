@@ -35,8 +35,6 @@ public class CaptchaService {
         urlSb.append("&token=" + smartToken);
         urlSb.append("&ip=" + ipAddr);
 
-        System.out.println(urlSb);
-
         JsonNode status = null;
         JsonNode message = null;
         try{
