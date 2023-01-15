@@ -18,7 +18,6 @@ import java.security.Principal;
 @RequestMapping("/")
 public class IndexController {
 
-
     @GetMapping()
     public String index(Model model){
         model.addAttribute("title", "Bobr-Coin — игра про бобров");
