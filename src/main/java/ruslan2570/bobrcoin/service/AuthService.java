@@ -63,7 +63,8 @@ public class AuthService {
                 login,
                 passwordEncoder.encode(password),
                 new BigDecimal("0.01"),
-                email, UUID.randomUUID(), null);
+                new BigDecimal("0.0"),
+                email, UUID.randomUUID(), null, 0);
 
         userRepo.save(userEntity);
 

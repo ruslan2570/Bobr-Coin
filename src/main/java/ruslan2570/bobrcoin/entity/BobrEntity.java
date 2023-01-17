@@ -22,5 +22,4 @@ public class BobrEntity {
     @ManyToOne
     private BobrTypeEntity bobrType;
 
-
 }

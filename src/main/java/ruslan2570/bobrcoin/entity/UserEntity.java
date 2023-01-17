@@ -30,12 +30,15 @@ public class UserEntity {
 
     private BigDecimal bcAmount;
 
+    private BigDecimal bcPerMinute;
+
     private String email;
 
     private UUID emailConfirmation;
 
     private UUID passwordRestore;
 
+    private int ratingPlace;
 
     @Override
     public boolean equals(Object o) {
