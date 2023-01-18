@@ -10,16 +10,16 @@
     <div th:object="${user}" class="card-body">
         <div class="card-text">
             <span>Имя пользователя:</span>
-            <span th:text="${user.login}">ruslan2570</span>
+            <span th:text="*{login}">ruslan2570</span>
         </div>
         <div class="card-text">
             <span>Баланс:</span>
-            <span th:text="${user.bcAmount}">9000</span>
+            <span th:text="*{bcAmount}">9000</span>
             <span>BC</span>
         </div>
         <div class="card-text">
             <span>Заработок в минуту:</span>
-            <span th:text="${user.bcPerMinute}">300К</span>
+            <span th:text="*{bcPerMinute}">300К</span>
         </div>
         <div class="card-text">
             <span>Количество бобров:</span>
@@ -27,7 +27,7 @@
         </div>
         <div class="card-text">
             <span>Место в рейтинге:</span>
-            <span th:text="${user.ratingPlace}">1</span>
+            <span th:text="*{ratingPlace}">1</span>
         </div>
     </div>
 </div>
