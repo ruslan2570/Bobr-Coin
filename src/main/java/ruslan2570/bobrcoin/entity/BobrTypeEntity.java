@@ -31,4 +31,8 @@ public class BobrTypeEntity {
 
     private String bonusDescription;
 
+    private String imageUrl;
+
+
+
 }

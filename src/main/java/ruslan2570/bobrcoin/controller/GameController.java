@@ -1,10 +1,6 @@
 package ruslan2570.bobrcoin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +16,11 @@ public class GameController {
     GameService gameService;
 
     @GetMapping
-    public String game(Model model, Authentication authentication){
+    public String game(Model model){
 
-        String username = authentication.getName();
+        gameService.loadUserInfo(model);
 
-        gameService.loadInfo(model);
+
 
         return "game";
     }

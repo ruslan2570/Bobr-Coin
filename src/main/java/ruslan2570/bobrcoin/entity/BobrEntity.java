@@ -22,4 +22,6 @@ public class BobrEntity {
     @ManyToOne
     private BobrTypeEntity bobrType;
 
+    private int lifetime;
+
 }

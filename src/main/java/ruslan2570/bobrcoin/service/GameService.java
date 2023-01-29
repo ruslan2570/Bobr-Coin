@@ -1,7 +1,6 @@
 package ruslan2570.bobrcoin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import ruslan2570.bobrcoin.entity.UserEntity;
@@ -13,7 +12,7 @@ public class GameService {
     @Autowired
     UserRepo userRepo;
 
-    public void loadInfo(Model model) {
+    public void loadUserInfo(Model model) {
         UserEntity user = userRepo.findUserByLogin((String) model.getAttribute("username"));
 
         model.addAttribute("user", user);
