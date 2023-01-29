@@ -43,20 +43,20 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("0.02"),
                 new BigDecimal("0.01"),
                 30,
-                "",
-                "",
-                ""));
+                null,
+                null,
+                "mcdonalds_worker.png"));
 
         bobrs.add(new BobrTypeEntity(
                 2,
-                "бобр строитель",
+                "Бобр строитель",
                 "Плотины под ключ",
                 new BigDecimal("0.5"),
                 new BigDecimal("0.05"),
                 25,
-                "",
-                "",
-                ""));
+                null,
+                null,
+                "builder.png"));
 
         bobrs.add(new BobrTypeEntity(
                 3,
@@ -67,7 +67,7 @@ public class ColdStartService implements InitializingBean {
                 20,
                 "police",
                 "+5% к продолжительности жизни за наличие данного вида бобров",
-                ""));
+                "policeman.png"));
 
         bobrs.add(new BobrTypeEntity(
                 4,
@@ -76,9 +76,9 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("10"),
                 new BigDecimal("1"),
                 45,
-                "",
-                "",
-                null));
+                null,
+                null,
+                "investor.png"));
 
         bobrs.add(new BobrTypeEntity(
                 5,
@@ -87,9 +87,9 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("30"),
                 new BigDecimal("5"),
                 45,
-                "",
-                "",
-                null));
+                null,
+                null,
+                "lawyer.png"));
 
         bobrs.add(new BobrTypeEntity(
                 6,
@@ -98,9 +98,9 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("100"),
                 new BigDecimal("10"),
                 45,
-                "",
-                "",
-                null));
+                null,
+                null,
+                "coder.png"));
 
         bobrTypeRepo.saveAll(bobrs);
     }

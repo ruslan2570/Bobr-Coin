@@ -20,9 +20,13 @@ public class GameController {
 
         gameService.loadUserInfo(model);
 
-
-
         return "game";
+    }
+
+    @GetMapping("/buy")
+    public String buyPage(Model model){
+        gameService.loadBobrsType(model);
+        return "buy";
     }
 
     @ModelAttribute("message")

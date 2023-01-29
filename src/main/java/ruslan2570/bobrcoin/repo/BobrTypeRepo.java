@@ -4,4 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import ruslan2570.bobrcoin.entity.BobrTypeEntity;
 
 public interface BobrTypeRepo extends CrudRepository<BobrTypeEntity, Long> {
+
 }
