@@ -28,7 +28,7 @@
                             <span>Бонус:</span>
                             <span th:text="${bobrsType.bonusDescription}"></span>
                         </div>
-                        <button class="btn btn-primary" th:text="'Купить за ' + ${bobrsType.price} + ' BC'"></button>
+                        <button class="btn btn-primary" th:data-id="${bobrsType.id}" th:text="'Купить за ' + ${bobrsType.price} + ' BC'"></button>
                     </div>
                 </div>
             </div>

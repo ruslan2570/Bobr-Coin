@@ -8,12 +8,8 @@ import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.repo.BobrTypeRepo;
 import ruslan2570.bobrcoin.repo.UserRepo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 @Service
-public class GameService {
+public class GameViewService {
 
     @Autowired
     UserRepo userRepo;
@@ -29,7 +25,6 @@ public class GameService {
 
 
     }
-
     public void loadBobrsType(Model model){
         Iterable<BobrTypeEntity> bobrsType = bobrTypeRepo.findAll();
 

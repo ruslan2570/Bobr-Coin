@@ -1,39 +1,15 @@
 package ruslan2570.bobrcoin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ruslan2570.bobrcoin.service.GameService;
 
 import java.security.Principal;
 
-@Controller
-@RequestMapping("/game")
+@RestController("/api/game/")
 public class GameController {
 
-    @Autowired
-    GameService gameService;
+    @PostMapping
+    public ResponseBody buyBobr(@RequestParam(name = "bobrstype-id") String bobrTypeId){
 
-    @GetMapping
-    public String game(Model model){
-
-        gameService.loadUserInfo(model);
-
-        return "game";
-    }
-
-    @GetMapping("/buy")
-    public String buyPage(Model model){
-        gameService.loadBobrsType(model);
-        return "buy";
-    }
-
-    @ModelAttribute("message")
-    public String getMessage(@RequestParam(value = "message", defaultValue = "") String message){
-        if(message.equals(""))
-            return null;
-        return message;
     }
 
     @ModelAttribute("username")
@@ -42,6 +18,4 @@ public class GameController {
             return principal.getName();
         return null;
     }
-
-
 }
