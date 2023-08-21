@@ -1,15 +1,28 @@
 package ruslan2570.bobrcoin.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import ruslan2570.bobrcoin.service.GameService;
 
 import java.security.Principal;
 
-@RestController("/api/game/")
+@RestController
+@RequestMapping("/api/game/")
 public class GameController {
 
-    @PostMapping
-    public ResponseBody buyBobr(@RequestParam(name = "bobrstype-id") String bobrTypeId){
+    @Autowired
+    GameService gameService;
 
+
+    @PostMapping("/buy")
+    public ResponseEntity<?> buyBobr(
+        @RequestParam(name = "bobrtype-id") long bobrTypeId,
+        Principal principal
+    ){
+        System.out.println("Купи бобра!");
+        return gameService.buy(bobrTypeId, principal);
     }
 
     @ModelAttribute("username")

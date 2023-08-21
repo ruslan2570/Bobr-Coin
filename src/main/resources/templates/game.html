@@ -1,62 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <div th:replace="fragments/head :: head"></div>
+
 <body>
-<div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/header :: header"></div>
 
-<div class="d-inline-flex start-50 translate-middle-x card">
-    <h5 class="card-header">Ваш аккаунт</h5>
-    <!--/*@thymesVar id="user" type="ruslan2570.bobrcoin.entity.UserEntity"*/-->
-    <div th:object="${user}" class="card-body">
-        <div class="card-text">
-            <span>Имя пользователя:</span>
-            <span th:text="*{login}">ruslan2570</span>
-        </div>
-        <div class="card-text">
-            <span>Баланс:</span>
-            <span th:text="*{bcAmount}">9000</span>
-            <span>BC</span>
-        </div>
-        <div class="card-text">
-            <span>Заработок в минуту:</span>
-            <span th:text="*{bcPerMinute}">300К</span>
-        </div>
-        <div class="card-text">
-            <span>Количество бобров:</span>
-            <span th:text="${numberOfBobrs}">42</span>
-        </div>
-        <div class="card-text">
-            <span>Место в рейтинге:</span>
-            <span th:text="*{ratingPlace}">1</span>
-        </div>
-    </div>
-</div>
-<!-- account card -->
-
-<!-- bobr-card -->
-<div class="card mb-3 start-50 translate-middle-x bobr-card">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img th:src="@{img/bobr/mcdonalds_worker.png}" class="img-fluid rounded-start" alt="">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">Иван иванов</h5>
-                <p class="card-text">Инвестор</p>
-                <div class="card-text">
-                    <span>Заработал за жизнь:</span>
-                    <span>10000</span>
-                    <span>BC</span>
-                </div>
-                <div class="card-text">
-                    <span>Осталось жить:</span>
-                    <span>10</span>
-                    <span>часов</span>
-                </div>
-                <button class="btn btn-danger">Продать</button>
+    <div class="d-inline-flex start-50 translate-middle-x card">
+        <h5 class="card-header">Ваш аккаунт</h5>
+        <!--/*@thymesVar id="user" type="ruslan2570.bobrcoin.entity.UserEntity"*/-->
+        <div th:object="${user}" class="card-body">
+            <div class="card-text">
+                <span>Имя пользователя:</span>
+                <span th:text="*{login}">ruslan2570</span>
+            </div>
+            <div class="card-text">
+                <span>Баланс:</span>
+                <span th:text="*{bcAmount}">9000</span>
+                <span>BC</span>
+            </div>
+            <div class="card-text">
+                <span>Заработок в минуту:</span>
+                <span th:text="*{bcPerMinute}">300К</span>
+            </div>
+            <div class="card-text">
+                <span>Количество бобров:</span>
+                <span th:text="${numberOfBobrs}">42</span>
+            </div>
+            <div class="card-text">
+                <span>Место в рейтинге:</span>
+                <span th:text="*{ratingPlace}">1</span>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="d-inline-flex start-50 translate-middle-x card">
+        <div class="card-header">Действия</div>
+
+        <div class="card-body">
+            <a href="game/buy" class="btn btn-primary">Купить бобров</a>
+        </div>
+        
+    </div>
+    <!-- account card -->
+
+    <!-- bobr-card -->
+    <div th:each="bobr: ${bobrs}" class="card mb-3 start-50 translate-middle-x bobr-card">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img th:src="'/img/bobr/' + ${bobr.bobrType.imageName}" class="img-fluid rounded-start" alt="">
+                </div>
+                <div class="col-md-8">
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${bobr.name}"></h5>
+                        <p class="card-text" th:text="${bobr.bobrType.name}"></p>
+                        <div class="card-text">
+                            <span>Заработал за жизнь:</span>
+                            <span th:text="${bobr.earnedForLife}"></span>
+                            <span>BC</span>
+                        </div>
+                        <div class="card-text">
+                            <span>Осталось жить:</span>
+                            <span th:text="${bobr.lifetime}"></span>
+                            <span>часов</span>
+
+                            <!-- <button class="btn btn-danger">Продать</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">Здесь должен быть подвал</div>
 </body>
+
 </html>

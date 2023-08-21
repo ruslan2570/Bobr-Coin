@@ -6,7 +6,21 @@
 
 <main>
 
-    <!--/*@thymesVar id="bobrsType" type="ruslan2570.bobrcoin.entity.BobrTypeEntity"*/-->
+    <div class="modal fade modal-open" tabindex="-1" role="dialog" id="msg-buy-err">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div th:each="bobrsType: ${bobrsType}">
         <div class="card mb-3 start-50 translate-middle-x bobr-card">
             <div class="row g-0">
@@ -28,14 +42,18 @@
                             <span>Бонус:</span>
                             <span th:text="${bobrsType.bonusDescription}"></span>
                         </div>
-                        <button class="btn btn-primary" th:data-id="${bobrsType.id}" th:text="'Купить за ' + ${bobrsType.price} + ' BC'"></button>
+                        <button class="btn btn-primary buy-btn" th:bobr-id="${bobrsType.id}">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                            <span class="sr-only" th:text="'Купить за ' + ${bobrsType.price} + ' BC'"></span>
+
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card mb-3 start-50 translate-middle-x bobr-card">
+    <!-- <div class="card mb-3 start-50 translate-middle-x bobr-card">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="img/bobr/mcdonalds_worker.png" class="img-fluid rounded-start" alt="">
@@ -53,7 +71,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </main>
 

@@ -55,7 +55,7 @@ public class AuthController {
                               RedirectAttributes redirectAttributes) {
         authService.login(login, password, redirectAttributes);
 
-        return new RedirectView("/", true);
+        return new RedirectView("/game", true);
     }
 
     @PostMapping("/reg")
@@ -70,7 +70,7 @@ public class AuthController {
             authService.reg(login, password, email, redirectAttributes);
         }
 
-        return new RedirectView("/", true);
+        return new RedirectView("/game", true);
     }
 
     /*
@@ -125,6 +125,6 @@ public class AuthController {
         if (newPassword != null && code != null)
             authService.setUserPassword(code, newPassword, redirectAttributes);
 
-        return new RedirectView("/", true);
+        return new RedirectView("/game", true);
     }
 }

@@ -1,7 +1,5 @@
 package ruslan2570.bobrcoin.service;
 
-import lombok.val;
-import org.hibernate.Session;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,7 +64,7 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("0.1"),
                 20,
                 "police",
-                "+5% к продолжительности жизни за наличие данного вида бобров",
+                "+5 лет к продолжительности жизни за наличие 10 бобров данного вида",
                 "policeman.png"));
 
         bobrs.add(new BobrTypeEntity(
@@ -76,8 +74,8 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("10"),
                 new BigDecimal("1"),
                 45,
-                null,
-                null,
+                "invest",
+                "+0.05 BC к производительности каждого бобра",
                 "investor.png"));
 
         bobrs.add(new BobrTypeEntity(
@@ -87,8 +85,8 @@ public class ColdStartService implements InitializingBean {
                 new BigDecimal("30"),
                 new BigDecimal("5"),
                 45,
-                null,
-                null,
+                "legacy",
+                "Навык \"Наследие\": данный бобр оставляет после себя наследство 50 BC",
                 "lawyer.png"));
 
         bobrs.add(new BobrTypeEntity(

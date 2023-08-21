@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,6 +40,9 @@ public class UserEntity {
     private UUID passwordRestore;
 
     private int ratingPlace;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<BobrEntity> bobrs;
 
     @Override
     public boolean equals(Object o) {

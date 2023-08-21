@@ -1,6 +1,7 @@
 package ruslan2570.bobrcoin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +19,14 @@ public class GameViewController {
     @GetMapping
     public String game(Model model){
 
-        gameViewService.loadUserInfo(model);
+        gameViewService.game(model);
 
         return "game";
     }
 
     @GetMapping("/buy")
     public String buyPage(Model model){
-        gameViewService.loadBobrsType(model);
+        gameViewService.buy(model);
         return "buy";
     }
 

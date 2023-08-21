@@ -14,11 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.exception.UserNotFoundException;
 import ruslan2570.bobrcoin.repo.UserRepo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -58,13 +61,15 @@ public class AuthService {
             return;
         }
 
+        ArrayList<BobrEntity> bobrs = new ArrayList<>();
+
         UserEntity userEntity = new UserEntity(
                 0,
                 login,
                 passwordEncoder.encode(password),
-                new BigDecimal("0.01"),
+                new BigDecimal("0.02"),
                 new BigDecimal("0.0"),
-                email, UUID.randomUUID(), null, 0);
+                email, UUID.randomUUID(), null, 0, bobrs);
 
         userRepo.save(userEntity);
 
