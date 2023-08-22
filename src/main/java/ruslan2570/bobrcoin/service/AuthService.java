@@ -1,6 +1,5 @@
 package ruslan2570.bobrcoin.service;
 
-import org.hibernate.id.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ruslan2570.bobrcoin.entity.AchievementEntity;
 import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.exception.UserNotFoundException;
@@ -62,6 +62,7 @@ public class AuthService {
         }
 
         ArrayList<BobrEntity> bobrs = new ArrayList<>();
+        ArrayList<AchievementEntity> achievements = new ArrayList<>();
 
         UserEntity userEntity = new UserEntity(
                 0,
@@ -69,7 +70,7 @@ public class AuthService {
                 passwordEncoder.encode(password),
                 new BigDecimal("0.02"),
                 new BigDecimal("0.0"),
-                email, UUID.randomUUID(), null, 0, bobrs);
+                email, UUID.randomUUID(), null, 0, false, bobrs, achievements);
 
         userRepo.save(userEntity);
 

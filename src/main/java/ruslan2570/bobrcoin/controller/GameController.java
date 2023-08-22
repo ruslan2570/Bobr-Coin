@@ -21,7 +21,6 @@ public class GameController {
         @RequestParam(name = "bobrtype-id") long bobrTypeId,
         Principal principal
     ){
-        System.out.println("Купи бобра!");
         return gameService.buy(bobrTypeId, principal);
     }
 

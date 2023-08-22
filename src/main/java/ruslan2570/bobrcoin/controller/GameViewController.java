@@ -5,6 +5,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import ruslan2570.bobrcoin.service.AchievementService;
 import ruslan2570.bobrcoin.service.GameViewService;
 
 import java.security.Principal;
@@ -15,6 +17,10 @@ public class GameViewController {
 
     @Autowired
     GameViewService gameViewService;
+
+    @Autowired
+    AchievementService achievementService;
+
 
     @GetMapping
     public String game(Model model){
@@ -28,6 +34,12 @@ public class GameViewController {
     public String buyPage(Model model){
         gameViewService.buy(model);
         return "buy";
+    }
+
+    @GetMapping("/achievements")
+    public String achievements(Principal principal, Model model) {
+        achievementService.achievements(principal, model);
+        return "achievements";
     }
 
     @ModelAttribute("message")

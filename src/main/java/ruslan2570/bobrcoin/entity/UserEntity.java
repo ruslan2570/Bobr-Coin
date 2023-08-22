@@ -41,8 +41,13 @@ public class UserEntity {
 
     private int ratingPlace;
 
+    private boolean autoupdateGame;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<BobrEntity> bobrs;
+
+    @ManyToMany
+    private List<AchievementEntity> achievements;
 
     @Override
     public boolean equals(Object o) {
