@@ -102,7 +102,7 @@ public class ColdStartService implements InitializingBean {
                                 new BigDecimal("5"),
                                 45,
                                 "legacy",
-                                "Навык \"Наследие\": данный бобр оставляет после себя наследство 50 BC",
+                                "Навык \"Наследство\": данный бобр оставляет после себя наследство 50 BC",
                                 "lawyer.png"));
 
                 bobrs.add(new BobrTypeEntity(
@@ -181,7 +181,7 @@ public class ColdStartService implements InitializingBean {
                 achievements.add(
                                 new AchievementEntity(
                                                 8L,
-                                                "Бегущий по плотине",
+                                                "Мечтают ли андроиды об электробобриках?",
                                                 "Купить бобра-полицейского, имея 10 бобров-программистов",
                                                 "achievements/bladerunner.png",
                                                 new ArrayList<UserEntity>()));

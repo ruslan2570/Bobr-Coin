@@ -18,6 +18,7 @@ import ruslan2570.bobrcoin.entity.AchievementEntity;
 import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.exception.UserNotFoundException;
+import ruslan2570.bobrcoin.repo.AchievementRepo;
 import ruslan2570.bobrcoin.repo.UserRepo;
 
 import java.math.BigDecimal;
@@ -38,6 +39,12 @@ public class AuthService {
 
     @Autowired
     MailService mailService;
+
+    @Autowired
+    AchievementService achievementService;
+
+    @Autowired
+    AchievementRepo achievementRepo;
 
     public void login(String login, String password, RedirectAttributes redirectAttributes) {
         UsernamePasswordAuthenticationToken auth = new
@@ -73,6 +80,10 @@ public class AuthService {
                 email, UUID.randomUUID(), null, 0, false, bobrs, achievements);
 
         userRepo.save(userEntity);
+
+        if(userEntity.getLogin().contains("capybara")){
+
+        }
 
         mailService.sendConfirmationCode(userEntity);
 

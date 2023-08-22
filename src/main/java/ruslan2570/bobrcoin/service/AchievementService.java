@@ -1,8 +1,10 @@
 package ruslan2570.bobrcoin.service;
 
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import ruslan2570.bobrcoin.repo.UserRepo;
 
 @Service
 public class AchievementService {
+
+    private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     UserRepo userRepo;
@@ -38,6 +42,17 @@ public class AchievementService {
 
         List<AchievementEntity> achievements = achievementRepo.findAll();
 
+        for (AchievementEntity achievement : achievements) {
+            if(!achievement.getUsers().contains(user)){
+                achievement.setImagePath(null);
+                String description = achievement.getDescription();
+
+                String newDescription = description.replaceAll("[a-zA-Zа-яА-Я0-9ё]", "?");
+
+                achievement.setDescription(newDescription);
+            }
+        }
+
         model.addAttribute("achievements", achievements);
     }
 
@@ -49,15 +64,17 @@ public class AchievementService {
 
         List<AchievementEntity> userAchievements = user.getAchievements();
 
-        if(userAchievements == null || userAchievements.isEmpty()){
-            throw new  NullPointerException("userAchievements is null");
-        }
+        LOG.info("grant entry");
+        
 
         if(userAchievements.contains(achievementEntity)){
+            LOG.info("achivka contains already");
             return;
         }
 
+        LOG.info("granted");
         userAchievements.add(achievementEntity);
+        user.setAchievements(userAchievements);
         userRepo.save(user);
     }
 }

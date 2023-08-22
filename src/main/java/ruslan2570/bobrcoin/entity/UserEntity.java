@@ -47,12 +47,15 @@ public class UserEntity {
     private List<BobrEntity> bobrs;
 
     @ManyToMany
+    @JoinTable(name = "achievement", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "achievement_id"))
     private List<AchievementEntity> achievements;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (this == o)
+            return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
         UserEntity that = (UserEntity) o;
         return Objects.equals(id, that.id);
     }
