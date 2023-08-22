@@ -9,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import ruslan2570.bobrcoin.entity.AchievementEntity;
 import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.BobrTypeEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
+import ruslan2570.bobrcoin.repo.AchievementRepo;
 import ruslan2570.bobrcoin.repo.BobrRepo;
 import ruslan2570.bobrcoin.repo.BobrTypeRepo;
 import ruslan2570.bobrcoin.repo.UserRepo;
@@ -30,6 +32,12 @@ public class GameService {
 
     @Autowired
     RandomNameService randomNameService;
+
+    @Autowired
+    AchievementService achievementService;
+
+    @Autowired
+    AchievementRepo achievementRepo;
 
     public ResponseEntity<?> buy(long bobrTypeId, Principal principal){
         UserEntity user;
@@ -58,11 +66,17 @@ public class GameService {
 
             BobrEntity bobr = new BobrEntity(0, randomNameService.generateRandomFullName(), bobrType, bobrType.getLifetime(), new BigDecimal(0), user);
 
+            
             bobrRepo.save(bobr);
             System.out.println(bobr.getId());
             balance = balance.subtract(bobrType.getPrice());
-            user.setBcAmount(balance);
+            // user.setBcAmount(balance);
             userRepo.save(user);
+
+            if(user.getBobrs().size() == 1){
+                AchievementEntity achievement = achievementRepo.findByName("Novus Bobr Seclorum");
+                achievementService.grant(user, achievement);
+            }
 
             return new ResponseEntity<>(null, HttpStatus.CREATED);
 

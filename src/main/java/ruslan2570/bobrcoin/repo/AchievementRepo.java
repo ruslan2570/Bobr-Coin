@@ -9,5 +9,7 @@ import ruslan2570.bobrcoin.entity.AchievementEntity;
 public interface AchievementRepo extends CrudRepository<AchievementEntity, Long>{
 
     List<AchievementEntity> findAll();
+
+    AchievementEntity findByName(String name);
     
 }
