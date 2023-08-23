@@ -52,7 +52,7 @@ const buy = (e) => {
         }
         );
 
-    e.target.children[0].setAttribute('hidden', '');
+    // clickedElement.children[0].setAttribute('hidden', '');
 }
 
 [...buyBtns].forEach(element => {

@@ -44,6 +44,10 @@
     </div>
     <!-- account card -->
 
+    <div th:if="${bobrs.empty}">
+        <img th:src="/img/NO.jpg">
+    </div>
+
     <!-- bobr-card -->
     <div th:each="bobr: ${bobrs}" class="card mb-3 start-50 translate-middle-x bobr-card">
             <div class="row g-0">

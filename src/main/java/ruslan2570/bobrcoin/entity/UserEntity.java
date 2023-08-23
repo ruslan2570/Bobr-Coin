@@ -43,7 +43,7 @@ public class UserEntity {
 
     private boolean autoupdateGame;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<BobrEntity> bobrs;
 
     @ManyToMany

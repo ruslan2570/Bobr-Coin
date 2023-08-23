@@ -115,7 +115,6 @@ public class GameService {
             }
 
             if (numCoderWorders >= 100 && bobrType.getName().equals("Бобр полицейский")) {
-                LOG.info("Ачивку в студию!");
                 AchievementEntity achievement = achievementRepo.findByName("Мечтают ли андроиды об электробобриках?");
                 achievementService.grant(user, achievement);
             }

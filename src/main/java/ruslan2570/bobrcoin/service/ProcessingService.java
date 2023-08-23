@@ -3,6 +3,11 @@ package ruslan2570.bobrcoin.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Logger;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -21,7 +26,12 @@ import ruslan2570.bobrcoin.repo.UserRepo;
 @Service
 @EnableScheduling
 @EnableAsync
+@Transactional
 public class ProcessingService {
+
+    private final Logger LOG = Logger.getLogger(this.getClass().getName());
+
+    // public final Lock lock = new ReentrantLock();
 
     @Autowired
     UserRepo userRepo;
@@ -35,12 +45,10 @@ public class ProcessingService {
     @Autowired
     AchievementService achievementService;
 
-
-    @Scheduled(initialDelay = 30000, fixedRate = 60000)
+    @Scheduled(initialDelay = 3000, fixedRate = 6000)
     @Async
-    public void processing(){
+    public void processing() {
         ArrayList<BobrEntity> bobrsForDeleting = new ArrayList<>();
-
 
         Iterable<UserEntity> users = userRepo.findAll();
 
@@ -61,23 +69,25 @@ public class ProcessingService {
                 income = income.add(bobrIncome);
                 bobr.setLifetime(bobr.getLifetime() - 1);
 
-                if(bobr.getLifetime() <= 0){
+                if (bobr.getLifetime() <= 0) {
                     bobrsForDeleting.add(bobr);
-                    if(bobrType.getBonus() != null && bobrType.getBonus().equals("heritage")){
+                    if (bobrType.getBonus() != null && bobrType.getBonus().equals("heritage")) {
                         balance = balance.add(new BigDecimal("50"));
                     }
+                } else {
+                    bobrRepo.save(bobr);
                 }
-
-                bobrRepo.save(bobr);
             }
 
             user.setBcAmount(balance);
             user.setBcPerMinute(income);
-            
+            userRepo.save(user);
+
         }
 
         bobrRepo.deleteAll(bobrsForDeleting);
-        
+
+        LOG.info("The processing have been completed");
 
     }
 }

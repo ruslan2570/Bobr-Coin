@@ -20,8 +20,6 @@ import ruslan2570.bobrcoin.repo.UserRepo;
 @Service
 public class AchievementService {
 
-    private final Logger LOG = Logger.getLogger(this.getClass().getName());
-
     @Autowired
     UserRepo userRepo;
 
@@ -64,15 +62,12 @@ public class AchievementService {
 
         List<AchievementEntity> userAchievements = user.getAchievements();
 
-        LOG.info("grant entry");
         
 
         if(userAchievements.contains(achievementEntity)){
-            LOG.info("achivka contains already");
             return;
         }
 
-        LOG.info("granted");
         userAchievements.add(achievementEntity);
         user.setAchievements(userAchievements);
         userRepo.save(user);
