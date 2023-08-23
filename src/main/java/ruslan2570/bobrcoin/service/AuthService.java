@@ -82,7 +82,8 @@ public class AuthService {
         userRepo.save(userEntity);
 
         if(userEntity.getLogin().contains("capybara")){
-
+            AchievementEntity achievement = achievementRepo.findByName("Это что за покемон!?");
+            achievementService.grant(userEntity, achievement);
         }
 
         mailService.sendConfirmationCode(userEntity);

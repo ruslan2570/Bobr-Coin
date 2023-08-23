@@ -40,7 +40,6 @@ public class AchievementEntity {
 
     private String imagePath;
 
-    @ManyToMany
-    @JoinTable(name = "user", joinColumns = @JoinColumn(name = "achievement_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "achievements")
     private List<UserEntity> users;
 }

@@ -67,7 +67,7 @@ public class ColdStartService implements InitializingBean {
                                 "Плотины под ключ",
                                 new BigDecimal("0.5"),
                                 new BigDecimal("0.05"),
-                                25,
+                                60,
                                 null,
                                 null,
                                 "builder.png"));
@@ -76,32 +76,32 @@ public class ColdStartService implements InitializingBean {
                                 3,
                                 "Бобр полицейский",
                                 "Граждане могут спать спокойно (или не могут?)",
-                                new BigDecimal("1"),
+                                new BigDecimal("5"),
                                 new BigDecimal("0.1"),
-                                20,
+                                90,
                                 "police",
-                                "+5 лет к продолжительности жизни за наличие 10 бобров данного вида",
+                                "+n минут к продолжительности жизни новых бобров за наличие n бобров данного вида",
                                 "policeman.png"));
 
                 bobrs.add(new BobrTypeEntity(
                                 4,
                                 "Бобр инвестор",
                                 "Бобр с Бобр-Стрит",
-                                new BigDecimal("10"),
+                                new BigDecimal("50"),
                                 new BigDecimal("1"),
-                                45,
-                                "invest",
-                                "+0.05 BC к производительности каждого бобра",
+                                180,
+                                "",
+                                "",
                                 "investor.png"));
 
                 bobrs.add(new BobrTypeEntity(
                                 5,
                                 "Бобр юрист",
                                 "",
-                                new BigDecimal("30"),
+                                new BigDecimal("80"),
                                 new BigDecimal("5"),
-                                45,
-                                "legacy",
+                                250,
+                                "heritage",
                                 "Навык \"Наследство\": данный бобр оставляет после себя наследство 50 BC",
                                 "lawyer.png"));
 
@@ -111,7 +111,7 @@ public class ColdStartService implements InitializingBean {
                                 "Hello, Bobr!",
                                 new BigDecimal("100"),
                                 new BigDecimal("10"),
-                                45,
+                                200,
                                 null,
                                 null,
                                 "coder.png"));
@@ -182,7 +182,7 @@ public class ColdStartService implements InitializingBean {
                                 new AchievementEntity(
                                                 8L,
                                                 "Мечтают ли андроиды об электробобриках?",
-                                                "Купить бобра-полицейского, имея 10 бобров-программистов",
+                                                "Купить бобра полицейского, имея 100 бобров программистов",
                                                 "achievements/bladerunner.png",
                                                 new ArrayList<UserEntity>()));
 

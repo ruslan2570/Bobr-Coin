@@ -72,13 +72,12 @@ public class GameService {
                     bobrType.getLifetime(), new BigDecimal(0), user);
 
             bobrRepo.save(bobr);
-            System.out.println(bobr.getId());
             balance = balance.subtract(bobrType.getPrice());
             user.setBcAmount(balance);
             userRepo.save(user);
+            user = userRepo.findUserById(user.getId());
 
-            if (user.getBobrs().size() == 1) {
-                LOG.info("Первый нах");
+            if (user.getBobrs().size() == 0) {
                 AchievementEntity achievement = achievementRepo.findByName("Novus Bobr Seclorum");
                 achievementService.grant(user, achievement);
             }
@@ -89,8 +88,6 @@ public class GameService {
             List<BobrEntity> bobrs = user.getBobrs();
             for (BobrEntity iBobr : bobrs) {
                 String iBobrTypeName = iBobr.getBobrType().getName();
-
-                LOG.info("his name is " + iBobrTypeName);
 
                 switch (iBobrTypeName) {
                     case "Обыкновенный бобр":
@@ -113,11 +110,11 @@ public class GameService {
             }
 
             if (numPoliceWorkers >= 1984) {
-                AchievementEntity achievement = achievementRepo.findByName("Большой Брат следит за тобой");
+                AchievementEntity achievement = achievementRepo.findByName("Большой Бобр следит за тобой");
                 achievementService.grant(user, achievement);
             }
 
-            if (numCoderWorders >= 10 && bobrType.getName().equals("Бобр полицейский")) {
+            if (numCoderWorders >= 100 && bobrType.getName().equals("Бобр полицейский")) {
                 LOG.info("Ачивку в студию!");
                 AchievementEntity achievement = achievementRepo.findByName("Мечтают ли андроиды об электробобриках?");
                 achievementService.grant(user, achievement);

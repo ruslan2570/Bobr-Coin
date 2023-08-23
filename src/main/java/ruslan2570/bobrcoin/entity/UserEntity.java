@@ -47,7 +47,10 @@ public class UserEntity {
     private List<BobrEntity> bobrs;
 
     @ManyToMany
-    @JoinTable(name = "achievement", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "achievement_id"))
+    @JoinTable(
+        name = "user_achievement", 
+        joinColumns = @JoinColumn(name = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "achievement_id"))
     private List<AchievementEntity> achievements;
 
     @Override

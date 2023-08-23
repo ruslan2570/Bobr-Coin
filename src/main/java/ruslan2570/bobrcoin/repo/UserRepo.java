@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface UserRepo extends CrudRepository<UserEntity, Long> {
 
-    public List<UserEntity> findUserById(Long id);
+    public UserEntity findUserById(Long id);
 
     public UserEntity findUserByLogin(String login);
 
