@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -27,11 +28,12 @@ import ruslan2570.bobrcoin.repo.UserRepo;
 @EnableScheduling
 @EnableAsync
 @Transactional
+@Scope
 public class ProcessingService {
 
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
-    // public final Lock lock = new ReentrantLock();
+    public final Lock lock = new ReentrantLock();
 
     @Autowired
     UserRepo userRepo;
@@ -45,7 +47,7 @@ public class ProcessingService {
     @Autowired
     AchievementService achievementService;
 
-    @Scheduled(initialDelay = 3000, fixedRate = 6000)
+    @Scheduled(initialDelay = 3000, fixedRate = 60000)
     @Async
     public void processing() {
         ArrayList<BobrEntity> bobrsForDeleting = new ArrayList<>();
@@ -55,7 +57,7 @@ public class ProcessingService {
         for (UserEntity user : users) {
             // ArrayList<BobrEntity> bobrsForDeleting = new ArrayList<>();
 
-            BigDecimal balance = user.getBcAmount();
+            BigDecimal balance = user.getBcAmount();    
             List<BobrEntity> bobrs = user.getBobrs();
 
             BigDecimal income = new BigDecimal("0.00");
@@ -88,6 +90,5 @@ public class ProcessingService {
         bobrRepo.deleteAll(bobrsForDeleting);
 
         LOG.info("The processing have been completed");
-
     }
 }

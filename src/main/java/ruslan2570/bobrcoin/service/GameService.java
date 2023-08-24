@@ -43,86 +43,93 @@ public class GameService {
     @Autowired
     AchievementRepo achievementRepo;
 
+    @Autowired
+    ProcessingService processingService;
+
     public ResponseEntity<?> buy(long bobrTypeId, Principal principal) {
-        UserEntity user;
-        BobrTypeEntity bobrType;
-        if (principal != null && principal.getName() != null) {
 
-            user = userRepo.findUserByLogin(principal.getName());
+        synchronized (processingService) {
+            UserEntity user;
+            BobrTypeEntity bobrType;
+            if (principal != null && principal.getName() != null) {
 
-            if (user == null) {
+                user = userRepo.findUserByLogin(principal.getName());
+
+                if (user == null) {
+                    return new ResponseEntity<>("Неавторизованный запрос", HttpStatus.UNAUTHORIZED);
+                }
+
+                Optional<BobrTypeEntity> bobrTypeOpt = bobrTypeRepo.findById(bobrTypeId);
+
+                if (!bobrTypeOpt.isPresent()) {
+                    return new ResponseEntity<>("Бобр не найден", HttpStatus.NOT_FOUND);
+                }
+
+                bobrType = bobrTypeOpt.get();
+
+                BigDecimal balance = user.getBcAmount();
+
+                if (balance.compareTo(bobrType.getPrice()) == -1) {
+                    return new ResponseEntity<>("Недостаточно средств", HttpStatus.PAYMENT_REQUIRED);
+                }
+
+                BobrEntity bobr = new BobrEntity(0, randomNameService.generateRandomFullName(), bobrType,
+                        bobrType.getLifetime(), new BigDecimal(0), user);
+
+                bobrRepo.save(bobr);
+                balance = balance.subtract(bobrType.getPrice());
+                user.setBcAmount(balance);
+                userRepo.save(user);
+                user = userRepo.findUserById(user.getId());
+
+                if (user.getBobrs().size() == 0) {
+                    AchievementEntity achievement = achievementRepo.findByName("Novus Bobr Seclorum");
+                    achievementService.grant(user, achievement);
+                }
+
+                int numMcdonaldsWorkers = 0;
+                int numPoliceWorkers = 0;
+                int numCoderWorders = 0;
+                List<BobrEntity> bobrs = user.getBobrs();
+                for (BobrEntity iBobr : bobrs) {
+                    String iBobrTypeName = iBobr.getBobrType().getName();
+
+                    switch (iBobrTypeName) {
+                        case "Обыкновенный бобр":
+                            numMcdonaldsWorkers++;
+                            break;
+
+                        case "Бобр полицейский":
+                            numPoliceWorkers++;
+                            break;
+
+                        case "Бобр программист":
+                            numCoderWorders++;
+                            break;
+                    }
+                }
+
+                if (numMcdonaldsWorkers >= 500) {
+                    AchievementEntity achievement = achievementRepo.findByName("Свободная касса!");
+                    achievementService.grant(user, achievement);
+                }
+
+                if (numPoliceWorkers >= 1984) {
+                    AchievementEntity achievement = achievementRepo.findByName("Большой Бобр следит за тобой");
+                    achievementService.grant(user, achievement);
+                }
+
+                if (numCoderWorders >= 100 && bobrType.getName().equals("Бобр полицейский")) {
+                    AchievementEntity achievement = achievementRepo
+                            .findByName("Мечтают ли андроиды об электробобриках?");
+                    achievementService.grant(user, achievement);
+                }
+
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+
+            } else {
                 return new ResponseEntity<>("Неавторизованный запрос", HttpStatus.UNAUTHORIZED);
             }
-
-            Optional<BobrTypeEntity> bobrTypeOpt = bobrTypeRepo.findById(bobrTypeId);
-
-            if (!bobrTypeOpt.isPresent()) {
-                return new ResponseEntity<>("Бобр не найден", HttpStatus.NOT_FOUND);
-            }
-
-            bobrType = bobrTypeOpt.get();
-
-            BigDecimal balance = user.getBcAmount();
-
-            if (balance.compareTo(bobrType.getPrice()) == -1) {
-                return new ResponseEntity<>("Недостаточно средств", HttpStatus.PAYMENT_REQUIRED);
-            }
-
-            BobrEntity bobr = new BobrEntity(0, randomNameService.generateRandomFullName(), bobrType,
-                    bobrType.getLifetime(), new BigDecimal(0), user);
-
-            bobrRepo.save(bobr);
-            balance = balance.subtract(bobrType.getPrice());
-            user.setBcAmount(balance);
-            userRepo.save(user);
-            user = userRepo.findUserById(user.getId());
-
-            if (user.getBobrs().size() == 0) {
-                AchievementEntity achievement = achievementRepo.findByName("Novus Bobr Seclorum");
-                achievementService.grant(user, achievement);
-            }
-
-            int numMcdonaldsWorkers = 0;
-            int numPoliceWorkers = 0;
-            int numCoderWorders = 0;
-            List<BobrEntity> bobrs = user.getBobrs();
-            for (BobrEntity iBobr : bobrs) {
-                String iBobrTypeName = iBobr.getBobrType().getName();
-
-                switch (iBobrTypeName) {
-                    case "Обыкновенный бобр":
-                        numMcdonaldsWorkers++;
-                        break;
-
-                    case "Бобр полицейский":
-                        numPoliceWorkers++;
-                        break;
-
-                    case "Бобр программист":
-                        numCoderWorders++;
-                        break;
-                }
-            }
-
-            if (numMcdonaldsWorkers >= 500) {
-                AchievementEntity achievement = achievementRepo.findByName("Свободная касса!");
-                achievementService.grant(user, achievement);
-            }
-
-            if (numPoliceWorkers >= 1984) {
-                AchievementEntity achievement = achievementRepo.findByName("Большой Бобр следит за тобой");
-                achievementService.grant(user, achievement);
-            }
-
-            if (numCoderWorders >= 100 && bobrType.getName().equals("Бобр полицейский")) {
-                AchievementEntity achievement = achievementRepo.findByName("Мечтают ли андроиды об электробобриках?");
-                achievementService.grant(user, achievement);
-            }
-
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
-
-        } else {
-            return new ResponseEntity<>("Неавторизованный запрос", HttpStatus.UNAUTHORIZED);
         }
     }
 }
