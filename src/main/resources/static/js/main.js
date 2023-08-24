@@ -1,4 +1,4 @@
-const serverUrl = "http://localhost:8090/";
+const serverUrl = document.location.origin + "/";
 
 let msgModal = document.getElementById('msg-modal');
 
@@ -55,11 +55,5 @@ const buy = (e) => {
     // clickedElement.children[0].setAttribute('hidden', '');
 }
 
-[...buyBtns].forEach(element => {
-
-
-    element.addEventListener('click', buy);
-
-    // element.onclick = buy;
-});
+[...buyBtns].forEach(element => element.addEventListener('click', buy));
 

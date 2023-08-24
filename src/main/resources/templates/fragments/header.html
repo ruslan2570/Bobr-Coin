@@ -1,6 +1,6 @@
 <header class="navbar navbar-expand-lg d-flex flex-wrap align-items-left py-3 mb-4 border-bottom">
 
-    <div class="container">
+    <div class="container justify-content-around">
         <a href="/" class="navbar-brand">Bobr-Coin</a>
 
         <nav>
@@ -27,7 +27,7 @@
                 <img th:src="@{/img/beaver1.png}" data-bs-toggle="dropdown" aria-expanded="false" height="35"
                      alt="BobrId">
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" th:text="${username}">Bobr</a>
+                    <a class="dropdown-item" href="/profile" th:text="${username}">Bobr</a>
                     <a class="dropdown-item" href="/game/achievements">Достижения</a>
                     <a class="dropdown-item text-danger" href="/logout">Выход</a>
                 </div>

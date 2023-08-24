@@ -26,10 +26,6 @@
                 <span>Количество бобров:</span>
                 <span th:text="${numberOfBobrs}">42</span>
             </div>
-            <div class="card-text">
-                <span>Место в рейтинге:</span>
-                <span th:text="*{ratingPlace}">1</span>
-            </div>
         </div>
     </div>
 
@@ -38,14 +34,13 @@
 
         <div class="card-body row">
             <a href="/game/buy" class="btn btn-primary">Купить бобров</a>
-            <button class="btn btn-secondary">вкл. Автообновление</button>
         </div>
         
     </div>
     <!-- account card -->
 
-    <div th:if="${bobrs.empty}">
-        <img th:src="/img/NO.jpg">
+    <div th:if="${bobrs.empty}" class="container d-flex justify-content-center mt-3 mb-3">
+        <img th:src="@{/img/no.jpg}" height="250" class="img-thumbnail">
     </div>
 
     <!-- bobr-card -->
@@ -68,8 +63,6 @@
                             <span>Осталось жить:</span>
                             <span th:text="${bobr.lifetime}"></span>
                             <span>минут</span>
-
-                            <!-- <button class="btn btn-danger">Продать</button> -->
                         </div>
                     </div>
                 </div>

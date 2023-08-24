@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,14 +48,13 @@ public class AuthService {
     AchievementRepo achievementRepo;
 
     public void login(String login, String password, RedirectAttributes redirectAttributes) {
-        UsernamePasswordAuthenticationToken auth = new
-                UsernamePasswordAuthenticationToken(login, password);
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(login, password);
 
         try {
             authenticationProvider.authenticate(auth);
             SecurityContext sc = SecurityContextHolder.getContext();
             sc.setAuthentication(auth);
-        } catch (RuntimeException e) {
+        } catch (AuthenticationException e) {
             redirectAttributes.addAttribute("message", e.getMessage());
         }
     }
@@ -77,11 +77,11 @@ public class AuthService {
                 passwordEncoder.encode(password),
                 new BigDecimal("0.02"),
                 new BigDecimal("0.0"),
-                email, UUID.randomUUID(), null, 0, false, bobrs, achievements);
+                email, UUID.randomUUID(), null, bobrs, achievements);
 
         userRepo.save(userEntity);
 
-        if(userEntity.getLogin().contains("capybara")){
+        if (userEntity.getLogin().contains("capybara")) {
             AchievementEntity achievement = achievementRepo.findByName("Это что за покемон!?");
             achievementService.grant(userEntity, achievement);
         }
@@ -91,14 +91,28 @@ public class AuthService {
         login(login, password, null);
     }
 
-    public void confirmEmail(){
+    public void confirmEmail(UUID code, Model model) {
 
+        UserEntity user = userRepo.findUserByEmailConfirmation(code);
+
+        if (user == null) {
+            model.addAttribute("message", "Код подтверждения не найден");
+        } else {
+            model.addAttribute("message",
+                    String.format("почтовый адрес %s пользователя %s успешно подтверждён",
+                            user.getEmail(),
+                            user.getLogin()));
+            user.setEmailConfirmation(null);
+            AchievementEntity achievement = achievementRepo.findByName("Вам посылка!!!");
+            achievementService.grant(user, achievement);
+            userRepo.save(user);
+        }
     }
 
     public void sendRestoreEmail(String email, Model model) {
         UserEntity user = userRepo.findUserByEmail(email);
 
-        if (user == null){
+        if (user == null) {
             model.addAttribute("message", "Нет пользователя с данным email");
             return;
         }
@@ -118,7 +132,7 @@ public class AuthService {
 
         if (user == null)
             model.addAttribute("message", "Код восстановления не найден");
-        else{
+        else {
             user.setPassword(passwordEncoder.encode(newPassword));
             user.setPasswordRestore(null);
             userRepo.save(user);

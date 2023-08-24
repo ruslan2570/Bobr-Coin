@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <div th:replace="fragments/head :: head"></div>
+
 <body>
-<div th:replace="fragments/header :: header">Здесь должен быть заголовок</div>
+    <div th:replace="fragments/header :: header">Здесь должен быть заголовок</div>
 
-<main>
+    <main>
 
-    <div class="modal fade modal-open" tabindex="-1" role="dialog" id="msg-buy-err">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p></p>
+        <div class="modal fade modal-open" tabindex="-1" role="dialog" id="msg-buy-err">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="d-inline-flex start-50 translate-middle-x card">
-        <a class="btn btn-primary" href="/game/">Вернуться обратно</a>    
-    </div>
+        <div class="d-inline-flex start-50 translate-middle-x card">
+            <a class="btn btn-primary" href="/game/">Вернуться обратно</a>
+        </div>
 
-    <div th:each="bobrsType: ${bobrsType}">
-        <div class="card mb-3 start-50 translate-middle-x bobr-card">
+        <div th:each="bobrsType: ${bobrsType}" class="card mb-3 start-50 translate-middle-x bobr-card">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img th:src="'/img/bobr/' + ${bobrsType.imageName}" class="img-fluid rounded-start" alt="">
@@ -42,12 +42,19 @@
                             <span>BC/мин.</span>
                         </div>
 
+                        <div class="card-text">
+                            <span>Продолжительность жизни:</span>
+                            <span th:text="${bobrsType.lifetime}">10</span>
+                            <span>минут</span>
+                        </div>
+
                         <div th:if="${bobrsType.bonusDescription} != null " class="card-text">
                             <span>Бонус:</span>
                             <span th:text="${bobrsType.bonusDescription}"></span>
                         </div>
                         <button class="btn btn-primary buy-btn" th:bobr-id="${bobrsType.id}">
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                hidden></span>
                             <span class="sr-only" th:text="'Купить за ' + ${bobrsType.price} + ' BC'"></span>
 
                         </button>
@@ -55,9 +62,8 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- <div class="card mb-3 start-50 translate-middle-x bobr-card">
+        <!-- <div class="card mb-3 start-50 translate-middle-x bobr-card">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="img/bobr/mcdonalds_worker.png" class="img-fluid rounded-start" alt="">
@@ -77,8 +83,9 @@
         </div>
     </div> -->
 
-</main>
+    </main>
 
-<div th:replace="fragments/footer :: footer">Здесь должен быть подвал</div>
+    <div th:replace="fragments/footer :: footer">Здесь должен быть подвал</div>
 </body>
+
 </html>

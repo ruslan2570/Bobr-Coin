@@ -21,4 +21,8 @@ public interface UserRepo extends CrudRepository<UserEntity, Long> {
     public boolean existsByEmail(String email);
 
     public boolean existsByLogin(String login);
+
+    public List<UserEntity> findTop10ByOrderByBcAmountDesc();
+
+    public List<UserEntity> findTop10ByOrderByBcPerMinuteDesc();
 }

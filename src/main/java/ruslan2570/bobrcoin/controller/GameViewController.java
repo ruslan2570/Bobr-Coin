@@ -13,6 +13,7 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/game")
+@PreAuthorize("hasRole('USER')")
 public class GameViewController {
 
     @Autowired

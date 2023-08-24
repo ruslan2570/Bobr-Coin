@@ -29,16 +29,16 @@ public class AchievementService {
     public void achievements(Principal principal, Model model){
 
         if(principal == null || principal.getName() == null){
-            new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return;
         }
 
         UserEntity user = userRepo.findUserByLogin(principal.getName());
 
         if(user == null){
-            new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return;
         }
 
-        List<AchievementEntity> achievements = achievementRepo.findAll();
+        Iterable<AchievementEntity> achievements = achievementRepo.findAll();
 
         for (AchievementEntity achievement : achievements) {
             if(!achievement.getUsers().contains(user)){
@@ -60,9 +60,7 @@ public class AchievementService {
             throw new NullPointerException();
         }
 
-        List<AchievementEntity> userAchievements = user.getAchievements();
-
-        
+        List<AchievementEntity> userAchievements = user.getAchievements();      
 
         if(userAchievements.contains(achievementEntity)){
             return;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<div th:replace="fragments/head :: head"></div>
+
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <main class="container mb-3">
+
+        <div class="row">
+            <div class="card m-3" style="width: 20rem;">
+                <div class="card-header">
+                    Количество бобров
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li th:each="user: ${usersTopBobrs}" class="list-group-item">
+                        <span th:text="${user.login}">user</span>
+                        <span class="badge bg-primary rounded-pill" th:text="${user.value}">100</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card m-3" style="width: 20rem;">
+                <div class="card-header">
+                    Баланс
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li th:each="user: ${usersTopBalance}" class="list-group-item">
+                        <span th:text="${user.login}" >user</span>
+                        <span th:text="${user.value} + ' BC'" class="badge bg-primary rounded-pill">100</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card m-3" style="width: 20rem;">
+                <div class="card-header">
+                    Заработок в минуту
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li th:each="user: ${usersTopIncomes}" class="list-group-item">
+                        <span th:text="${user.login}">user</span>
+                        <span th:text="${user.value} + ' BC/мин.'" class="badge bg-primary rounded-pill">100</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="fragments/footer :: footer">Здесь должен быть подвал</div>
+</body>
+
+</html>

@@ -27,7 +27,7 @@ public class BobrEntity {
     @JoinColumn(name = "type_id", nullable = false)
     private BobrTypeEntity bobrType;
 
-    private int lifetime;
+    private Long lifetime;
 
     private BigDecimal earnedForLife;
 

@@ -4,41 +4,41 @@
 <div th:replace="fragments/head :: head"></div>
 
 <body class="bg-light">
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<script src="https://captcha-api.yandex.ru/captcha.js" defer></script>
-<div th:if="${code} == null" class="position-relative p-3 p-md-5 m-md-3 text-center">
-    <form method="post" th:action="@{../auth/forgot-password}">
-        <!--        <label>-->
-        <!--            Адрес электронной почты:-->
-        <!--            <input id="email" type="email" required>-->
-        <!--        </label>-->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script src="https://captcha-api.yandex.ru/captcha.js" defer></script>
+    <div th:if="${code} == null" class="position-relative p-3 p-md-5 m-md-3 text-center">
+        <form method="post" th:action="@{../auth/forgot-password}">
+            <!--        <label>-->
+            <!--            Адрес электронной почты:-->
+            <!--            <input id="email" type="email" required>-->
+            <!--        </label>-->
 
-        <span>Адрес электронной почты:</span>
-        <input name="email" type="email" required>
+            <span>Адрес электронной почты:</span>
+            <input name="email" type="email" required>
 
-        <div
-                id="captcha-container"
-                class="smart-captcha m-5 w-25"
-                data-sitekey="5mei2vyWK0z4egDvy4SwMkxUXFoDCgUHwzD9le5A"></div>
+            <div class="container d-flex justify-content-center">
+                <div id="captcha-container" class="smart-captcha m-5 w-25"
+                    data-sitekey="5mei2vyWK0z4egDvy4SwMkxUXFoDCgUHwzD9le5A"></div>
+            </div>
 
-        <button type="submit" class="btn-primary btn">Отправить</button>
-    </form>
-</div>
-<div th:if="${code} != null" class="position-relative p-3 p-md-5 m-md-3 text-center">
-    <form method="post" th:action="@{/auth/forgot-password}">
+            <button type="submit" class="btn-primary btn">Отправить</button>
+        </form>
+    </div>
+    <div th:if="${code} != null" class="position-relative p-3 p-md-5 m-md-3 text-center">
+        <form method="post" th:action="@{/auth/forgot-password}">
 
-        <input name="code" type="text" required th:value="${code}" hidden="hidden">
+            <input name="code" type="text" required th:value="${code}" hidden="hidden">
 
-        <div class="p-md-2">
-            <label>
-                Новый пароль:
-                <input name="new-password" type="password" required>
-            </label>
-        </div>
+            <div class="p-md-2">
+                <label>
+                    Новый пароль:
+                    <input name="new-password" type="password" required>
+                </label>
+            </div>
 
-        <button type="submit" class="btn-primary btn">Отправить</button>
-    </form>
-</div>
+            <button type="submit" class="btn-primary btn">Отправить</button>
+        </form>
+    </div>
 </body>
 
 </html>

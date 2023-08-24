@@ -1,6 +1,5 @@
 package ruslan2570.bobrcoin.controller;
 
-
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.aspectj.apache.bcel.classfile.Module;
@@ -32,6 +31,7 @@ import javax.servlet.http.HttpSession;
 
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
@@ -51,8 +51,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public RedirectView login(@RequestParam("login") String login,
-                              @RequestParam("password") String password,
-                              RedirectAttributes redirectAttributes) {
+            @RequestParam("password") String password,
+            RedirectAttributes redirectAttributes) {
         authService.login(login, password, redirectAttributes);
 
         return new RedirectView("/", true);
@@ -60,29 +60,34 @@ public class AuthController {
 
     @PostMapping("/reg")
     public RedirectView reg(@RequestParam("login") String login,
-                            @RequestParam("password") String password,
-                            @RequestParam("email") String email,
-                            @RequestParam("smarttoken") String smartToken,
-                            HttpServletRequest request,
-                            RedirectAttributes redirectAttributes) {
+            @RequestParam("password") String password,
+            @RequestParam("email") String email,
+            @RequestParam("smarttoken") String smartToken,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
 
-        if(captchaService.validate(smartToken, request.getRemoteAddr(), redirectAttributes)){
+        if (captchaService.validate(smartToken, request.getRemoteAddr(), redirectAttributes)) {
             authService.reg(login, password, email, redirectAttributes);
         }
 
         return new RedirectView("/", true);
     }
 
+    @GetMapping("/confirm/{code}")
+    public RedirectView confirm(@PathVariable(name = "code", required = true) UUID code, RedirectAttributes redirectAttributes) {
+        authService.confirmEmail(code, redirectAttributes);
+        return new RedirectView("/", true);
+    }
+
     /*
-    if code == null:
-        Попросить ввести email
-        Отправить форму
-
-    if code != null:
-        Запросить новый пароль
-        Отправить форму
-    */
-
+     * if code == null:
+     * Попросить ввести email
+     * Отправить форму
+     * 
+     * if code != null:
+     * Запросить новый пароль
+     * Отправить форму
+     */
     @GetMapping("/forgot-password")
     public String forgotPassword(@RequestParam(name = "code", required = false) String code, Model model) {
 
@@ -94,15 +99,15 @@ public class AuthController {
     }
 
     /*
-    email:
-        Сгенерировать код подтверждения
-        Записать код в БД
-        Отправить код на почту
-        Перенаправить на главную с сообщением
-
-    password:
-        Захешировать пароль
-        Сохранить пароль в БД
+     * email:
+     * Сгенерировать код подтверждения
+     * Записать код в БД
+     * Отправить код на почту
+     * Перенаправить на главную с сообщением
+     * 
+     * password:
+     * Захешировать пароль
+     * Сохранить пароль в БД
      */
     @PostMapping("/forgot-password")
     public RedirectView restorePassword(
@@ -113,10 +118,10 @@ public class AuthController {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
-        if (email != null && smartToken != null){
-            if(captchaService.validate(smartToken, request.getRemoteAddr(), redirectAttributes)) {
+        if (email != null && smartToken != null) {
+            if (captchaService.validate(smartToken, request.getRemoteAddr(), redirectAttributes)) {
                 authService.sendRestoreEmail(email, redirectAttributes);
-            } else{
+            } else {
                 redirectAttributes.addAttribute("message", "Необходимо пройти капчу");
                 return new RedirectView("/", true);
             }

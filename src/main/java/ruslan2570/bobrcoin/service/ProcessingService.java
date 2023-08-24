@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import ruslan2570.bobrcoin.entity.AchievementEntity;
 import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.BobrTypeEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
@@ -55,7 +56,12 @@ public class ProcessingService {
         Iterable<UserEntity> users = userRepo.findAll();
 
         for (UserEntity user : users) {
-            // ArrayList<BobrEntity> bobrsForDeleting = new ArrayList<>();
+
+            if(user.getBcAmount().compareTo(new BigDecimal("0.00")) <= 0 && user.getBobrs().isEmpty()){
+                AchievementEntity achievement = achievementRepo.findByName("Underbobr");
+                achievementService.grant(user, achievement);
+                return;
+            }
 
             BigDecimal balance = user.getBcAmount();    
             List<BobrEntity> bobrs = user.getBobrs();
@@ -84,7 +90,6 @@ public class ProcessingService {
             user.setBcAmount(balance);
             user.setBcPerMinute(income);
             userRepo.save(user);
-
         }
 
         bobrRepo.deleteAll(bobrsForDeleting);

@@ -39,10 +39,6 @@ public class UserEntity {
 
     private UUID passwordRestore;
 
-    private int ratingPlace;
-
-    private boolean autoupdateGame;
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<BobrEntity> bobrs;
 

@@ -12,7 +12,6 @@ import ruslan2570.bobrcoin.entity.UserEntity;
 import java.time.Instant;
 import java.util.Date;
 
-
 @Service
 public class MailService {
 
@@ -22,31 +21,34 @@ public class MailService {
     @Value("${spring.mail.username}")
     String from;
 
-    public void sendConfirmationCode(UserEntity userEntity){
-        SimpleMailMessage message = new SimpleMailMessage();
+    @Value("${spring.mail.server}")
+    String serverUrl;
 
+    public void sendConfirmationCode(UserEntity userEntity) {
+        SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(from);
         message.setTo(userEntity.getEmail());
         message.setSubject("Активация аккаунта");
         String text = String.format("Привет, %s! Спасибо за интерес к Bobr-Coin." +
-                " Для активации аккаунта перейдите по следующей ссылке: " +
-                "https://bobr-coin.new-bokino.ru/auth/activate/%s", userEntity.getLogin(),
+                " Для активации аккаунта перейди по следующей ссылке: " +
+                "%sauth/confirm/%s", userEntity.getLogin(), serverUrl,
                 userEntity.getEmailConfirmation().toString());
 
         message.setSentDate(Date.from(Instant.now()));
         message.setSubject("Подтверждение аккаунта Bobr-Coin");
         message.setText(text);
 
-        // javaMailSender.send(message);
+        javaMailSender.send(message);
     }
 
-    public void sendPasswordRestoreCode(UserEntity userEntity){
+    public void sendPasswordRestoreCode(UserEntity userEntity) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         String text = String.format("Привет, %s! Для восстановления пароля перейди по ссылке: " +
-                "https://bobr-coin.new-bokino.ru/auth/forgot-password/?code=%s",
+                "%sauth/forgot-password/?code=%s",
                 userEntity.getLogin(),
+                serverUrl,
                 userEntity.getPasswordRestore());
 
         message.setFrom(from);

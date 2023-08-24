@@ -73,8 +73,16 @@ public class GameService {
                     return new ResponseEntity<>("Недостаточно средств", HttpStatus.PAYMENT_REQUIRED);
                 }
 
+                long additionalMins = 0L;
+
+                if (user.getBobrs() != null) {
+                    List<BobrEntity> bobrs = user.getBobrs();
+
+                    additionalMins = bobrs.stream().filter(x -> x.getBobrType().getName().equals("Бобр полицейский")).count();
+                }
+
                 BobrEntity bobr = new BobrEntity(0, randomNameService.generateRandomFullName(), bobrType,
-                        bobrType.getLifetime(), new BigDecimal(0), user);
+                        bobrType.getLifetime() + additionalMins, new BigDecimal(0), user);
 
                 bobrRepo.save(bobr);
                 balance = balance.subtract(bobrType.getPrice());
@@ -82,7 +90,7 @@ public class GameService {
                 userRepo.save(user);
                 user = userRepo.findUserById(user.getId());
 
-                if (user.getBobrs().size() == 0) {
+                if (user.getBobrs().size() <= 1) {
                     AchievementEntity achievement = achievementRepo.findByName("Novus Bobr Seclorum");
                     achievementService.grant(user, achievement);
                 }
