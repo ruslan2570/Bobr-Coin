@@ -1,7 +1,9 @@
 package ruslan2570.bobrcoin.service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -16,13 +18,16 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 
 import ruslan2570.bobrcoin.entity.AchievementEntity;
 import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.BobrTypeEntity;
+import ruslan2570.bobrcoin.entity.MetricsEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.repo.AchievementRepo;
 import ruslan2570.bobrcoin.repo.BobrRepo;
+import ruslan2570.bobrcoin.repo.MetricsRepo;
 import ruslan2570.bobrcoin.repo.UserRepo;
 
 @Service
@@ -48,22 +53,32 @@ public class ProcessingService {
     @Autowired
     AchievementService achievementService;
 
+    @Autowired
+    MetricsRepo metricsRepo;
+
     @Scheduled(initialDelay = 3000, fixedRate = 60000)
     @Async
     public void processing() {
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
         ArrayList<BobrEntity> bobrsForDeleting = new ArrayList<>();
+
+        BigDecimal totalAmount = new BigDecimal("0.00");
+        BigDecimal totalIncome = new BigDecimal("0.00");
 
         Iterable<UserEntity> users = userRepo.findAll();
 
         for (UserEntity user : users) {
 
-            if(user.getBcAmount().compareTo(new BigDecimal("0.00")) <= 0 && user.getBobrs().isEmpty()){
+            if (user.getBcAmount().compareTo(new BigDecimal("0.00")) <= 0 && user.getBobrs().isEmpty()) {
                 AchievementEntity achievement = achievementRepo.findByName("Underbobr");
                 achievementService.grant(user, achievement);
                 return;
             }
 
-            BigDecimal balance = user.getBcAmount();    
+            BigDecimal balance = user.getBcAmount();
             List<BobrEntity> bobrs = user.getBobrs();
 
             BigDecimal income = new BigDecimal("0.00");
@@ -90,9 +105,23 @@ public class ProcessingService {
             user.setBcAmount(balance);
             user.setBcPerMinute(income);
             userRepo.save(user);
+
+            totalAmount = totalAmount.add(balance);
+            totalIncome = totalIncome.add(totalIncome);
         }
 
         bobrRepo.deleteAll(bobrsForDeleting);
+
+        MetricsEntity metrics = new MetricsEntity();
+        metrics.setAmount(totalAmount);
+        metrics.setIncomes(totalIncome);
+        metrics.setNumBobrs(bobrRepo.count());
+        metrics.setMetricsDate(new Date());
+
+        stopWatch.stop();
+        metrics.setProcessingTime(stopWatch.getTotalTimeSeconds());
+
+        metricsRepo.save(metrics);
 
         LOG.info("The processing have been completed");
     }
