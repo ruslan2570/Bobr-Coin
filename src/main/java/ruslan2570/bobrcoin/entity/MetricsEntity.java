@@ -1,7 +1,6 @@
 package ruslan2570.bobrcoin.entity;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;

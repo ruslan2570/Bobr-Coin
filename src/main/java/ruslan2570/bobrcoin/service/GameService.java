@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,6 @@ import ruslan2570.bobrcoin.repo.UserRepo;
 
 @Service
 public class GameService {
-
-    private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     UserRepo userRepo;

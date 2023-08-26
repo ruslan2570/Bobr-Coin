@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ruslan2570.bobrcoin.entity.AchievementEntity;
-import ruslan2570.bobrcoin.entity.BobrEntity;
 import ruslan2570.bobrcoin.entity.BobrTypeEntity;
 import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.repo.AchievementRepo;
-import ruslan2570.bobrcoin.repo.BobrRepo;
 import ruslan2570.bobrcoin.repo.BobrTypeRepo;
 
 import java.math.BigDecimal;

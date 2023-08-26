@@ -1,6 +1,5 @@
 package ruslan2570.bobrcoin.service;
 
-import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,9 +13,7 @@ import ruslan2570.bobrcoin.entity.UserEntity;
 import ruslan2570.bobrcoin.repo.UserRepo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {

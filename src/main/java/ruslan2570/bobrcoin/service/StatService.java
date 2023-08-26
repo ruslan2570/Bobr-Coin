@@ -1,7 +1,5 @@
 package ruslan2570.bobrcoin.service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +7,6 @@ import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ruslan2570.bobrcoin.entity.MetricsEntity;
 import ruslan2570.bobrcoin.repo.MetricsRepo;
 
 @Service
