@@ -107,7 +107,7 @@ public class ProcessingService {
             userRepo.save(user);
 
             totalAmount = totalAmount.add(balance);
-            totalIncome = totalIncome.add(totalIncome);
+            totalIncome = totalIncome.add(income);
         }
 
         bobrRepo.deleteAll(bobrsForDeleting);
@@ -122,6 +122,8 @@ public class ProcessingService {
         metrics.setProcessingTime(stopWatch.getTotalTimeSeconds());
 
         metricsRepo.save(metrics);
+
+        // metricsRepo.deleteRecordsNotInTop25ByOrderByMetricsDateAsc();
 
         LOG.info("The processing have been completed");
     }

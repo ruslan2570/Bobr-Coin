@@ -1,0 +1,34 @@
+.ct-series-a .ct-line {
+    /* Set the colour of this series line */
+    stroke: #0d6efd;
+    /* Control the thikness of your lines */
+    stroke-width: 5px;
+  }
+
+  /* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
+  .ct-series-a .ct-point {
+    /* Colour of your points */
+    stroke: black   ;
+    /* Size of your points */
+    stroke-width: 10px;
+    /* Make your points appear as squares */
+    stroke-linecap: round;
+  }
+
+  /* .ct-perfect-fourth{
+    width: 40% !important;
+    height: 40% !important;
+  } */
+/* 
+  .stat-card{
+
+    width: 100% !important;    
+    
+  }
+
+  @media (min-width: 1000px) {
+    .stat-card{
+        width: 45% !important;    
+        margin-left: 3rem;
+      } 
+} */

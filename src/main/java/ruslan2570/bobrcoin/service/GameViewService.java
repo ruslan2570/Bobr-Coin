@@ -24,6 +24,12 @@ public class GameViewService {
     BobrTypeRepo bobrTypeRepo;
 
     public void game(Model model) {
+
+
+        if(model.getAttribute("username") == null){
+            return;
+        }
+
         UserEntity user = userRepo.findUserByLogin((String) model.getAttribute("username"));
         List<BobrEntity> bobrs = user.getBobrs();
         int numberOfBobrs = bobrs.size();

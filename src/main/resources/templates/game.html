@@ -5,7 +5,7 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
 
-    <div class="d-inline-flex start-50 translate-middle-x card">
+    <div th:if="${user} != null" class="d-inline-flex start-50 translate-middle-x card">
         <h5 class="card-header">Ваш аккаунт</h5>
         <!--/*@thymesVar id="user" type="ruslan2570.bobrcoin.entity.UserEntity"*/-->
         <div th:object="${user}" class="card-body">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="    action-card">
+    <div th:if="${user} != null" class="action-card">
         <div class="card-header">Действия</div>
 
         <div class="card-body row">
@@ -38,13 +38,17 @@
         
     </div>
     <!-- account card -->
+<div th:if="${user} != null">
+
 
     <div th:if="${bobrs.empty}" class="container d-flex justify-content-center mt-3 mb-3">
         <img th:src="@{/img/no.jpg}" height="250" class="img-thumbnail">
     </div>
+</div>
 
+    
     <!-- bobr-card -->
-    <div th:each="bobr: ${bobrs}" class="card mb-3 start-50 translate-middle-x bobr-card">
+    <div th:if="${user} != null" th:each="bobr: ${bobrs}" class="card mb-3 start-50 translate-middle-x bobr-card">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img th:src="'/img/bobr/' + ${bobr.bobrType.imageName}" class="img-fluid rounded-start" alt="">
@@ -68,6 +72,13 @@
                 </div>
             </div>
     </div>
+
+    <div th:if="${user} == null">
+        <h2>Необходимо авторизоваться</h2>
+    </div>
+
+    </div>
+
     <div th:replace="fragments/footer :: footer">Здесь должен быть подвал</div>
 </body>
 
