@@ -21,6 +21,7 @@ public class TopController {
     @GetMapping
     public String top(Model model) {
         topService.top(model);
+        model.addAttribute("title", "Топ");
         return "top";
     }
 
@@ -29,5 +30,10 @@ public class TopController {
         if (principal != null)
             return principal.getName();
         return null;
+    }
+
+    @ModelAttribute("link")
+    public String getLink() {
+        return "top";
     }
 }

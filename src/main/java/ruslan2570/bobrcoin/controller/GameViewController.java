@@ -27,19 +27,21 @@ public class GameViewController {
     public String game(Model model){
 
         gameViewService.game(model);
-
+        model.addAttribute("title", "Игра");
         return "game";
     }
 
     @GetMapping("/buy")
     public String buyPage(Model model){
         gameViewService.buy(model);
+        model.addAttribute("title", "Покупка бобров");
         return "buy";
     }
 
     @GetMapping("/achievements")
     public String achievements(Principal principal, Model model) {
         achievementService.achievements(principal, model);
+        model.addAttribute("title", "Достижения");
         return "achievements";
     }
 
@@ -55,5 +57,10 @@ public class GameViewController {
         if(principal != null)
             return principal.getName();
         return null;
+    }
+
+    @ModelAttribute("link")
+    public String getLink() {
+        return "game";
     }
 }

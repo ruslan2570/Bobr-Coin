@@ -3,7 +3,7 @@
     <div class="container justify-content-around">
         <a href="/" class="navbar-brand">Bobr-Coin</a>
 
-        <nav>
+        <!-- <nav>
             <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0">
                 <li><a th:href="@{/}" class="nav-link px-2 link-secondary">Главная</a></li>
                 <li><a th:href="@{../game}" class="nav-link px-2 link-dark">Игра</a></li>
@@ -11,11 +11,36 @@
                 <li><a th:href="@{../game/stats}" class="nav-link px-2 link-dark">Статистика</a></li>
                 <li><a th:href="@{../about/}" class="nav-link px-2 link-dark">About</a></li>
             </ul>
+        </nav> -->
+        <nav>
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0">
+                <li>
+                    <a th:href="@{/}"
+                        th:classappend="${link == 'main' ? 'nav-link px-2 link-primary' : 'nav-link px-2 link-dark'}">Главная</a>
+                </li>
+                <li>
+                    <a th:href="@{../game}"
+                        th:classappend="${link == 'game' ? 'nav-link px-2 link-primary' : 'nav-link px-2 link-dark'}">Игра</a>
+                </li>
+                <li>
+                    <a th:href="@{../game/top}"
+                        th:classappend="${link == 'top' ? 'nav-link px-2 link-primary' : 'nav-link px-2 link-dark'}">Топ</a>
+                </li>
+                <li>
+                    <a th:href="@{../game/stats}"
+                        th:classappend="${link == 'stats' ? 'nav-link px-2 link-primary' : 'nav-link px-2 link-dark'}">Статистика</a>
+                </li>
+                <li>
+                    <a th:href="@{../about/}"
+                        th:classappend="${link == 'about' ? 'nav-link px-2 link-primary' : 'nav-link px-2 link-dark'}">About</a>
+                </li>
+            </ul>
         </nav>
+
 
         <div class="col-md-3 text-end justify-content-end" th:if="${username} == null">
             <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">Вход
+                data-bs-target="#loginModal">Вход
             </button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regModal">
                 Регистрация
@@ -25,7 +50,7 @@
         <div th:if="${username} != null">
             <div class="dropdown">
                 <img th:src="@{/img/beaver1.png}" data-bs-toggle="dropdown" aria-expanded="false" height="35"
-                     alt="BobrId">
+                    alt="BobrId">
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/profile" th:text="${username}">Bobr</a>
                     <a class="dropdown-item" href="/game/achievements">Достижения</a>

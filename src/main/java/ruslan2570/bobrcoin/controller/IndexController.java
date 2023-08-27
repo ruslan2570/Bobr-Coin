@@ -35,4 +35,9 @@ public class IndexController {
             return principal.getName();
         return null;
     }
+
+    @ModelAttribute("link")
+    public String getLink() {
+        return "main";
+    }
 }

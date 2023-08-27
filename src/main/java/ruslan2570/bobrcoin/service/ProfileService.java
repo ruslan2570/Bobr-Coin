@@ -35,7 +35,7 @@ public class ProfileService {
 
     public void profile(Principal principal, Model model) {
         UserEntity user = userRepo.findUserByLogin(principal.getName());
-
+        model.addAttribute("title", user.getLogin());
         model.addAttribute("user", user);
 
     }

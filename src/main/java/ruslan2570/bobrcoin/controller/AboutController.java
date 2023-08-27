@@ -36,4 +36,9 @@ public class AboutController {
             return principal.getName();
         return null;
     }
+
+    @ModelAttribute("link")
+    public String getLink() {
+        return "about";
+    }
 }

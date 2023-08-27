@@ -13,7 +13,7 @@ import ruslan2570.bobrcoin.service.StatService;
 
 @Controller
 @RequestMapping("/game/stats")
-public class StatController {
+public class StatsController {
 
     @Autowired
     StatService statService;
@@ -22,6 +22,7 @@ public class StatController {
     public String stats(Model model) {
 
         statService.stat(model);
+        model.addAttribute("title", "Статистика");
 
         return "stats";
     }
@@ -33,4 +34,8 @@ public class StatController {
         return null;
     }
 
+    @ModelAttribute("link")
+    public String getLink() {
+        return "stats";
+    }
 }
