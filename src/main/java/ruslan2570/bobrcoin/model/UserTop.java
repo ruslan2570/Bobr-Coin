@@ -1,4 +1,4 @@
-package ruslan2570.model;
+package ruslan2570.bobrcoin.model;
 
 import lombok.Data;
 

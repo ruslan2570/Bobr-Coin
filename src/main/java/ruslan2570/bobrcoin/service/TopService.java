@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import ruslan2570.bobrcoin.entity.UserEntity;
+import ruslan2570.bobrcoin.model.UserTop;
 import ruslan2570.bobrcoin.repo.UserRepo;
-import ruslan2570.model.UserTop;
 
 @Service
 public class TopService {
